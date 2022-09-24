@@ -4,6 +4,7 @@ import NavTab from '../NavTab/NavTab';
 import AboutProject from '../AboutProject/AboutProject';
 
 import './App.css';
+import Techs from '../Techs/Techs';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Promo />
         <NavTab />
         <AboutProject />
+        <Techs />
       </div>
     </div>
   );
