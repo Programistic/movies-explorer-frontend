@@ -1,15 +1,17 @@
-.techs-content {
-
+.techs {
+  margin: 0;
+  padding: 100px 70px;
+  background-color: #f5f5f5;
 }
 
-.techs-content__header {
+.techs__content-title {
   margin: 90px 0 0;
   padding: 0;
   font: 400 50px/58px 'Inter', sans-serif;
   text-align: center;
 }
 
-.techs-content__text {
+.techs__content-text {
   margin: 26px auto 0;
   padding: 0;
   max-width: 500px;
@@ -17,7 +19,7 @@
   text-align: center;
 }
 
-.technologies {
+.techs__list {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -26,7 +28,7 @@
   padding: 0;
 }
 
-.technologies__item {
+.techs__list-item {
   width: 90px;
   height: 60px;
   margin: 0;
@@ -36,4 +38,5 @@
   text-align: center;
   background-color: #e8e8e8;
   border-radius: 10px;
+  list-style-type: none;
 }

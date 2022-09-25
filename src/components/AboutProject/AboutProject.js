@@ -3,21 +3,21 @@ import './AboutProject.css';
 
 function AboutProject() {
   return (
-    <section className="inner-container inner-container_color_light">
-      <h2 className="subtitle">О проекте</h2>
+    <section className="about">
+      <h2 className="title">О проекте</h2>
       <div className="line line_color_black"></div>
-      <div className="about-content">
-        <div className="about-content__column-left">
-          <p className="about-content__header">Дипломный проект включал 5 этапов</p>
-          <p className="about-content__text">
+      <div className="about__content">
+        <div className="about__column-left">
+          <p className="about__content-title">Дипломный проект включал 5 этапов</p>
+          <p className="about__content-text">
             Составление плана, работу над бэкендом,
             вёрстку, добавление функциональности и
             финальные доработки.
           </p>
         </div>
-        <div className="about-content__column-right">
-          <p className="about-content__header">На выполнение диплома ушло 5 недель</p>
-          <p className="about-content__text">
+        <div className="about__column-right">
+          <p className="about__content-title">На выполнение диплома ушло 5 недель</p>
+          <p className="about__content-text">
             У каждого этапа был мягкий и жёсткий дедлайн,
             которые нужно было соблюдать,
             чтобы успешно защититься.

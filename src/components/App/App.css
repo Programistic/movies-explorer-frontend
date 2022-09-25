@@ -13,19 +13,14 @@
 
 .inner-container {
   margin: 0;
-}
-
-.inner-container_color_light {
-  padding: 110px 70px;
-  background-color: #fff;
+  padding: 0 70px;
 }
 
 .inner-container_color_grey {
-  padding: 100px 70px;
   background-color: #f5f5f5;
 }
 
-.subtitle {
+.title {
   margin: 0 0 23px;
   padding: 0;
   font: 400 22px/27px 'Inter', sans-serif;
@@ -41,4 +36,8 @@
 
 .line_color_black {
   background-color: #000;
+}
+
+.line_color_grey {
+  background-color: #e8e8e8;
 }

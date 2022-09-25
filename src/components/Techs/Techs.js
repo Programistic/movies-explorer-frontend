@@ -3,25 +3,39 @@ import './Techs.css';
 
 function Techs() {
   return (
-    <section className="inner-container inner-container_color_grey">
-      <h2 className="subtitle">Технологии</h2>
+    <section className="techs">
+      <h2 className="title">Технологии</h2>
       <div className="line line_color_black"></div>
-      <div className="techs-content">
-        <p className="techs-content__header">7 технологий</p>
-        <p className="techs-content__text">
+      <div className="techs__content">
+        <h3 className="techs__content-title">7 технологий</h3>
+        <p className="techs__content-text">
           На курсе веб-разработки мы освоили технологии,
           которые применили в дипломном проекте.
         </p>
       </div>
-      <div className="technologies">
-        <div className="technologies__item">HTML</div>
-        <div className="technologies__item">CSS</div>
-        <div className="technologies__item">JS</div>
-        <div className="technologies__item">React</div>
-        <div className="technologies__item">Git</div>
-        <div className="technologies__item">Express.js</div>
-        <div className="technologies__item">mongoDB</div>
-      </div>
+      <ul className="techs__list">
+        <li className="techs__list-item">
+          HTML
+        </li>
+        <li className="techs__list-item">
+          CSS
+        </li>
+        <li className="techs__list-item">
+          JS
+        </li>
+        <li className="techs__list-item">
+          React
+        </li>
+        <li className="techs__list-item">
+          Git
+        </li>
+        <li className="techs__list-item">
+          Express.js
+        </li>
+        <li className="techs__list-item">
+          mongoDB
+        </li>
+      </ul>
     </section>
   );
 }
