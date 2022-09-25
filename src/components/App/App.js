@@ -4,6 +4,7 @@ import NavTab from '../NavTab/NavTab';
 import AboutProject from '../AboutProject/AboutProject';
 import Profile from '../Profile/Profile';
 import Portfolio from '../Portfolio/Portfolio';
+import Footer from '../Footer/Footer';
 
 import './App.css';
 import Techs from '../Techs/Techs';
@@ -19,6 +20,7 @@ function App() {
         <Techs />
         <Profile />
         <Portfolio />
+        <Footer />
       </div>
     </div>
   );

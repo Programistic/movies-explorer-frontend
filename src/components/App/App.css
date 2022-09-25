@@ -41,3 +41,20 @@
 .line_color_grey {
   background-color: #e8e8e8;
 }
+
+.link {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  transition: opacity .15s ease;
+}
+
+.list-item {
+  list-style-type: none;
+}
+
+.data {
+  margin: 0;
+  padding: 0;
+  font: 400 13px/15.7px 'Inter', sans-serif;
+}

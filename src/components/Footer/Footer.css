@@ -1,0 +1,40 @@
+.footer {
+  margin: 0;
+  padding: 79px 70px 20px;
+}
+
+.footer__content {
+  margin: 0 0 20px;
+  padding: 0;
+  font: 400 13px/15.7px 'Inter', sans-serif;
+  color: #a0a0a0;
+  text-align: center;
+}
+
+.footer__link {
+  font: 400 13px/15.7px 'Inter', sans-serif;
+  color: #000;
+}
+
+.footer__link:hover {
+  opacity: .7;
+}
+
+.footer__links {
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+  padding: 0;
+  width: 182px;
+}
+
+.footer__info {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0 0;
+  padding: 0;
+}
+
+.footer__data {
+  align-self: center;
+}
