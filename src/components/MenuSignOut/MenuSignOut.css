@@ -1,0 +1,16 @@
+.menu__link_role_signin {
+  width: 76px;
+  height: 32px;
+  font: 500 12px/16px 'Inter', 'Arial', sans-serif;
+  color: #000;
+  background-color: #2be080;
+  border-radius: 3px;
+}
+
+.menu__link_role_signup {
+  height: 32px;
+  margin-right: 30px;
+  font: 500 12px/16px 'Inter', 'Arial', sans-serif;
+  color: #fff;
+  background-color: #073042;
+}

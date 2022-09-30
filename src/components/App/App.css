@@ -58,3 +58,51 @@
   padding: 0;
   font: 400 13px/15.7px 'Inter', sans-serif;
 }
+
+.menu {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.menu__inner-container {
+  display: flex;
+  width: 274px;
+  margin: 0 auto;
+}
+
+.menu__link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  transition: opacity .15s ease;
+}
+
+.menu__link:hover {
+  opacity: .7;
+}
+
+.accaunt-icon__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 26px;
+  height: 30px;
+  background-color: #f9f9f9;
+}
+
+.accaunt-icon {
+  margin: 0;
+  padding: 0;
+  width: 11.5px;
+  height: 14px;
+}
+
+.accaunt-text {
+  margin: 0 17px 0 0;
+  padding: 0;
+}

@@ -25,23 +25,23 @@
 .profile__content-title {
   margin: 0;
   padding: 0;
-  font: 400 50px/58px 'Inter', sans-serif;
+  font: 400 50px/58px 'Inter', 'Arial', sans-serif;
 }
 
 .profile__content-about {
   margin: 18px 0 0;
   padding: 0;
-  font: 500 18px/20px 'Inter', sans-serif;
+  font: 500 18px/20px 'Inter', 'Arial', sans-serif;
 }
 
 .profile__content-text {
   margin: 26px 0 56px;
   padding: 0;
-  font: 400 14px/22px 'Inter', sans-serif;
+  font: 400 14px/22px 'Inter', 'Arial', sans-serif;
 }
 
 .profile__link {
-  font: 500 14px/17px 'Inter', sans-serif;
+  font: 500 14px/17px 'Inter', 'Arial', sans-serif;
   color: #000;
 }
 

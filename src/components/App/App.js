@@ -1,26 +1,26 @@
+import { Route, Switch } from 'react-router-dom';
 import Header from '../Header/Header';
-import Promo from '../Promo/Promo';
-import NavTab from '../NavTab/NavTab';
-import AboutProject from '../AboutProject/AboutProject';
-import AboutMe from '../Profile/Profile';
-import Portfolio from '../Portfolio/Portfolio';
+import Main from '../Main/Main';
+import Movies from '../Movies/Movies';
 import Footer from '../Footer/Footer';
-
 import './App.css';
-import Techs from '../Techs/Techs';
 
 function App() {
   return (
     <div className="page">
       <div className="container">
-        <Header />
-        <Promo />
-        <NavTab />
-        <AboutProject />
-        <Techs />
-        <AboutMe />
-        <Portfolio />
-        <Footer />
+        <Switch>
+          <Route exact path="/">
+            <Header path="/" loggedIn={false}/>
+            <Main />
+            <Footer />
+          </Route>
+          <Route exact path="/movies">
+            <Header path="/movies" loggedIn={true}/>
+            <Movies />
+            <Footer />
+          </Route>
+        </Switch>
       </div>
     </div>
   );

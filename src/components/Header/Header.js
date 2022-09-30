@@ -1,15 +1,16 @@
-import './Header.css';
 import Logo from '../Logo/Logo';
-import Menu from '../Menu/Menu';
-// import Navigation from '../Navigation/Navigation';
+import MenuSignOut from '../MenuSignOut/MenuSignOut';
+import MenuSignIn from '../MenuSignIn/MenuSignIn';
+import './Header.css';
 
-function Header() {
-  const isHomePage = true;
-
+function Header({ path, loggedIn }) {
+  const isHomePage = path === '/';
   return (
     <header className={`header ${isHomePage ? 'header_color_dark' : ''}`}>
       <Logo />
-      <Menu />
+      {
+        loggedIn ? <MenuSignIn /> : <MenuSignOut />
+      }
     </header>
   );
 }

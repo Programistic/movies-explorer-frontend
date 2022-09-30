@@ -11,7 +11,7 @@
 .navTab__item {
   margin: 0 20px;
   padding: 0;
-  font: 500 13px/16px 'Inter', sans-serif;
+  font: 500 13px/16px 'Inter', 'Arial', sans-serif;
   color: #fff;
   text-decoration: none;
   border-bottom: 1.3px solid #fff;
