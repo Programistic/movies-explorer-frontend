@@ -1,18 +1,19 @@
 import './MoviesCardList.css';
 import Card from '../MoviesCard/MoviesCard';
 
-function MoviesCardList() {
+function MoviesCardList({ isMoreCards, path }) {
+  const isSavedMoviesPage = path === '/saved-movies';
   return (
     <section className="cards-container">
       <ul className="cards">
-        <Card isSaved={true} />
+        <Card isSaved={true} isInSavedMovies={isSavedMoviesPage} />
         <Card />
-        <Card isSaved={true} />
-        <Card isSaved={true} />
+        <Card isSaved={true} isInSavedMovies={isSavedMoviesPage} />
+        <Card isSaved={true} isInSavedMovies={isSavedMoviesPage} />
         <Card />
         <Card />
       </ul>
-      <button className="cards__button-more" type="button" aria-label="Ещё" onClick="">Ещё</button>
+      { isMoreCards && <button className="cards__button-more" type="button" aria-label="Ещё" onClick="">Ещё</button> }
     </section>
   );
 }

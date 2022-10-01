@@ -4,10 +4,10 @@ import './Movies.css';
 
 function Movies() {
   return (
-    <section className="movies">
+    <>
       <SearchForm />
-      <MoviesCardList />
-    </section>
+      <MoviesCardList isMoreCards={true} />
+    </>
   );
 }
 

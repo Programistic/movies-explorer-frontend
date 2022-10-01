@@ -2,7 +2,7 @@ import './MoviesCard.css';
 import '../App/App.css';
 import movieImage from '../../images/img-movie-1.svg';
 
-function MoviesCard({ isSaved }) {
+function MoviesCard({ isSaved, isInSavedMovies }) {
   return (
     <li className="card list-item">
       <div className="card__header">
@@ -11,11 +11,11 @@ function MoviesCard({ isSaved }) {
           <p className="card__movie-duration">1ч 47м</p>
         </div>
         {
-          isSaved ? (
-            <button className="card__movie-selector card__movie-selector_type_saved" type="button" aria-label="Удалить из сохранённых" onClick=""></button>
+          (isSaved ? (
+            <button className={`card__movie-selector ${isInSavedMovies ? 'card__movie-selector_type_delete' : 'card__movie-selector_type_saved'}`} type="button" aria-label="Удалить из сохранённых" onClick=""></button>
           ) : (
             <button className="card__movie-selector card__movie-selector_type_unsaved" type="button" aria-label="Добавить в сохранённые" onClick=""></button>
-          )
+          ))
         }
       </div>
       <a href="#" className="card__movie-link" target="_blank" rel="">

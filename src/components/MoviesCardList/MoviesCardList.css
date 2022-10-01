@@ -2,9 +2,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 85px auto 0;
-  padding: 0;
+  margin: 85px auto 80px;
+  padding: 80px 0 0;
+  max-width: 1140px;
   min-height: 30vh;
+  border-top: 1px solid #e8e8e8;
 }
 
 .cards {
@@ -18,7 +20,7 @@
 }
 
 .cards__button-more {
-  margin: 107px 0 80px;
+  margin: 107px 0 0;
   padding: 11px 60px 9px;
   width: 320px;
   height: 36px;
