@@ -89,3 +89,9 @@
   background-repeat: no-repeat;
   background-position: center;
 }
+
+@media screen and (max-width: 769px) {
+  .card__movie-link {
+    height: 190px;
+  }
+}

@@ -57,3 +57,32 @@
   object-fit: cover;
   border-radius: 10px;
 }
+
+@media screen and (max-width: 769px) {
+  .about-me {
+    padding: 90px 50px 0;
+  }
+
+  .about-me__column-left {
+    max-width: 364px;
+  }
+
+  .about-me__name {
+    font: 400 40px/40px 'Inter', sans-serif;
+  }
+
+  .about-me__info {
+    margin: 16px 0 0;
+    font: 500 12px/18px 'Inter', sans-serif;
+  }
+
+  .about-me__text {
+    margin: 20px 0 34px;
+    font: 400 12px/18px 'Inter', sans-serif;
+  }
+
+  .about-me__foto {
+    width: 255px;
+    height: 307px;
+  }
+}

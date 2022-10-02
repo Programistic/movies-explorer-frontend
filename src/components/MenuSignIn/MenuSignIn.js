@@ -10,7 +10,7 @@ function MenuSignIn() {
         <Link to="/movies" className="menu__link menu__link_role_movies">Фильмы</Link>
         <Link to="/saved-movies" className="menu__link menu__link_role_saved-movies">Сохранённые фильмы</Link>
       </div>
-      <Link to="/" className="menu__link menu__link_role_accaunt">
+      <Link to="/accaunt" className="menu__link menu__link_role_accaunt">
         <p className="accaunt-text">Аккаунт</p>
         <div className="accaunt-icon__container">
           <img className="accaunt-icon" src={accauntIcon} alt="Логотип аккаунт" />

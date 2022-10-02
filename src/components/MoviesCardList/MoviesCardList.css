@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 85px auto 80px;
+  margin: 68px auto 0;
   padding: 80px 0 0;
   max-width: 1140px;
   min-height: 30vh;
@@ -20,7 +20,7 @@
 }
 
 .cards__button-more {
-  margin: 107px 0 0;
+  margin: 107px 0 80px;
   padding: 11px 60px 9px;
   width: 320px;
   height: 36px;
@@ -37,15 +37,28 @@
   opacity: .7;
 }
 
-@media screen and (max-width: 1023px) {
+@media screen and (max-width: 1200px) {
+  .cards-container {
+    width: calc(100% - 60px);
+  }
+
   .cards {
     grid-template-columns: repeat(3, calc((100% - 48px) / 3));
   }
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 769px) {
+  .cards-container {
+    margin: 109px auto 0;
+  }
+
   .cards {
     grid-template-columns: repeat(2, calc((100% - 30px) / 2));
+    gap: 36px 30px;
+  }
+
+  .cards__button-more {
+    margin: 80px 0;
   }
 }
 

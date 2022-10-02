@@ -1,6 +1,6 @@
 .search-form {
   display: flex;
-  margin: 70px auto;
+  margin: 33px auto 0;
   padding: 16px 0;
   height: 72px;
   max-width: 1140px;
@@ -124,4 +124,24 @@
 
 .search-form__checkbox:checked::before {
   transform: scale(0);
+}
+
+@media screen and (max-width: 1200px) {
+  .search-form {
+    width: calc(100% - 60px);
+  }
+}
+
+@media screen and (max-width: 769px) {
+  .search-form {
+    margin: 80px auto 0;
+  }
+
+  .search-form__search-container {
+    padding: 0 19px;
+  }
+
+  .search-form__select-container {
+    padding: 0 19px;
+  }
 }

@@ -8,7 +8,7 @@ function AboutProject() {
       <div className="line line_color_black"></div>
       <div className="about__content">
         <div className="about__column-left">
-          <p className="about__content-title">Дипломный проект включал 5 этапов</p>
+          <h3 className="about__content-title">Дипломный проект включал 5 этапов</h3>
           <p className="about__content-text">
             Составление плана, работу над бэкендом,
             вёрстку, добавление функциональности и
@@ -16,7 +16,7 @@ function AboutProject() {
           </p>
         </div>
         <div className="about__column-right">
-          <p className="about__content-title">На выполнение диплома ушло 5 недель</p>
+          <h3 className="about__content-title">На выполнение диплома ушло 5 недель</h3>
           <p className="about__content-text">
             У каждого этапа был мягкий и жёсткий дедлайн,
             которые нужно было соблюдать,

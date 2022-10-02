@@ -20,13 +20,13 @@
 }
 
 .portfolio__list {
-  margin: 30px 0 0;
+  margin: 0;
   padding: 0;
 }
 
 .portfolio__list-item {
   margin: 0;
-  padding: 20px 0;
+  padding: 19px 0;
 }
 
 .portfolio__link-text {
@@ -43,4 +43,19 @@
   width: 29px;
   height: 29px;
   background: url(../../images/link.svg) center no-repeat #fff;
+}
+
+@media screen and (max-width: 769px) {
+  .portfolio {
+    padding: 90px 50px;
+  }
+
+  .portfolio__link-text {
+    font: 400 28px/50px 'Inter', 'Arial', sans-serif;
+  }
+
+  .portfolio__link-arrow {
+    width: 27px;
+    height: 27px;
+  }
 }

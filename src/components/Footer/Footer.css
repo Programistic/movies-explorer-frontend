@@ -38,3 +38,9 @@
 .footer__data {
   align-self: center;
 }
+
+@media screen and (max-width: 769px) {
+  .footer {
+    padding: 79px 30px 20px;
+  }
+}

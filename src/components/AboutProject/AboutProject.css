@@ -1,6 +1,6 @@
 .about {
   margin: 0;
-  padding: 110px 70px 88px;
+  padding: 110px 70px;
 }
 
 .about__content {
@@ -71,4 +71,19 @@
   margin: 14px 0 0;
   padding: 0;
   color: #a0a0a0;
+}
+
+@media screen and (max-width: 769px) {
+  .about {
+    padding: 90px 50px;
+  }
+
+  .about__column-right {
+    margin-left: 30px;
+  }
+
+  .about__content-text {
+    margin: 22px 0 0;
+    font: 400 12px/18px 'Inter', sans-serif;
+  }
 }
