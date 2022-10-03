@@ -5,6 +5,9 @@ import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import Profile from '../Profile/Profile';
 import Footer from '../Footer/Footer';
+import Login from '../Login/Login';
+import Register from '../Register/Register';
+import NotFound from '../NotFound/NotFound';
 import './App.css';
 
 function App() {
@@ -30,6 +33,15 @@ function App() {
           <Route exact path="/profile">
             <Header loggedIn={true} />
             <Profile />
+          </Route>
+          <Route exact path="/signin">
+            <Login />
+          </Route>
+          <Route exact path="/signup">
+            <Register />
+          </Route>
+          <Route exact path="/notfound">
+            <NotFound />
           </Route>
         </Switch>
       </div>
