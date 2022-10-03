@@ -13,19 +13,17 @@ function SearchForm() {
 
   return (
     <>
-      <section className="search-form">
+      <form className="search-form">
         <div className="search-form__search-container">
           <img className="search-form__find-icon" src={findIcon} alt="Найти" />
-          <form className="search-form__form">
-            <input
-              className="search-form__input"
-              type="text"
-              name="search"
-              required
-              placeholder="Фильм"
-              minLength="1"
-            />
-          </form>
+          <input
+            className="search-form__input"
+            type="text"
+            name="search"
+            required
+            placeholder="Фильм"
+            minLength="1"
+          />
           <button className="search-form__button" onClick={handleSearch}>Найти</button>
         </div>
         <div className="search-form__select-container">
@@ -36,7 +34,7 @@ function SearchForm() {
           />
           <label className="search-form__checkbox-label">Короткометражки</label>
         </div>
-      </section>
+      </form>
       {
         isPreloaderStart && <Preloader />
       }
