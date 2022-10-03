@@ -3,6 +3,7 @@ import Header from '../Header/Header';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
+import Profile from '../Profile/Profile';
 import Footer from '../Footer/Footer';
 import './App.css';
 
@@ -25,6 +26,10 @@ function App() {
             <Header loggedIn={true} />
             <SavedMovies path="/saved-movies" />
             <Footer />
+          </Route>
+          <Route exact path="/profile">
+            <Header loggedIn={true} />
+            <Profile />
           </Route>
         </Switch>
       </div>
