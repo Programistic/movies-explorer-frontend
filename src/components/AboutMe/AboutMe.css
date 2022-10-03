@@ -6,6 +6,7 @@
 .about-me__content {
   display: flex;
   justify-content: space-between;
+  gap: 0 50px;
   margin: 66px 0 0;
   padding: 0;
 }
@@ -95,12 +96,17 @@
 
   .about-me__content {
     flex-wrap: wrap-reverse;
+    justify-content: center;
     margin: 60px 0 0;
     padding: 0;
   }
 
   .about-me__column-left {
-    max-width: 364px;
+    max-width: 292px;
+  }
+
+  .about-me__column-right {
+    max-width: 292px;
   }
 
   .about-me__name {

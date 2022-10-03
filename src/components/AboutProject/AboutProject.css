@@ -118,14 +118,24 @@
   }
 
   .timeline__column-left {
+    flex-basis: 140px;
+  }
+
+  .timeline__column-right {
+    flex-basis: 528px;
+  }
+
+  .timeline__course {
+    margin: 10px 0 0;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .timeline__column-left {
     flex-basis: 100px;
   }
 
   .timeline__column-right {
     flex-basis: 184px;
-  }
-
-  .timeline__course {
-    margin: 10px 0 0;
   }
 }
