@@ -14,3 +14,18 @@
   color: #fff;
   background-color: #073042;
 }
+
+@media screen and (max-width: 580px) {
+  .menu__link_role_signin {
+    padding: 0 14px;
+    width: 54px;
+    height: 26px;
+    font: 500 10px/16px 'Inter', 'Arial', sans-serif;
+  }
+
+  .menu__link_role_signup {
+    margin-right: 14px;
+    height: 26px;
+    font: 500 10px/16px 'Inter', 'Arial', sans-serif;
+  }
+}

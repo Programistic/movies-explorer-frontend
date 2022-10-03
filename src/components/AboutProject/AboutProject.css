@@ -22,6 +22,7 @@
   padding: 0;
   font: 400 20px/24.2px 'Inter', sans-serif;
   color: #000;
+  letter-spacing: -.04em;
 }
 
 .about__content-text {
@@ -85,5 +86,46 @@
   .about__content-text {
     margin: 22px 0 0;
     font: 400 12px/18px 'Inter', sans-serif;
+  }
+}
+
+@media screen and (max-width: 580px) {
+  .about {
+    padding: 70px 18px;
+  }
+
+  .about__content {
+    flex-wrap: wrap;
+  }
+
+  .about__column-right {
+    margin-left: 0;
+  }
+
+  .about__content-title {
+    margin: 58px 0 0;
+    font: 400 18px/21.8px 'Inter', sans-serif;
+  }
+
+  .about__content-text {
+    margin: 16px 0 0;
+    font: 400 11px/16px 'Inter', sans-serif;
+  }
+
+  .timeline {
+    margin: 60px 0 0;
+    font: 400 11px/13.3px 'Inter', sans-serif;
+  }
+
+  .timeline__column-left {
+    flex-basis: 100px;
+  }
+
+  .timeline__column-right {
+    flex-basis: 184px;
+  }
+
+  .timeline__course {
+    margin: 10px 0 0;
   }
 }

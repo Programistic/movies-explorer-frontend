@@ -34,15 +34,17 @@
   padding: 0;
   font: 400 30px/50px 'Inter', 'Arial', sans-serif;
   color: #000;
+  letter-spacing: -.04em;
 }
 
 .portfolio__link-arrow {
   align-self: center;
   margin: 0;
   padding: 0;
-  width: 29px;
-  height: 29px;
+  width: 25px;
+  height: 25px;
   background: url(../../images/link.svg) center no-repeat #fff;
+  background-size: cover;
 }
 
 @media screen and (max-width: 769px) {
@@ -55,7 +57,27 @@
   }
 
   .portfolio__link-arrow {
-    width: 27px;
-    height: 27px;
+    width: 24px;
+    height: 24px;
+  }
+}
+
+@media screen and (max-width: 580px) {
+  .portfolio {
+    padding: 70px 14px;
+  }
+
+  .portfolio__title {
+    margin: 0 0 40px;
+    font: 400 14px/20px 'Inter', 'Arial', sans-serif;
+  }
+
+  .portfolio__link-text {
+    font: 400 18px/28px 'Inter', 'Arial', sans-serif;
+  }
+
+  .portfolio__link-arrow {
+    width: 14px;
+    height: 14px;
   }
 }

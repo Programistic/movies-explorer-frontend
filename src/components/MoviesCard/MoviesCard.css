@@ -94,4 +94,18 @@
   .card__movie-link {
     height: 190px;
   }
+
+  .card__movie-image {
+    height: 190px;
+  }
+}
+
+@media screen and (max-width: 580px) {
+  .card__movie-link {
+    height: 168px;
+  }
+
+  .card__movie-image {
+    height: 168px;
+  }
 }

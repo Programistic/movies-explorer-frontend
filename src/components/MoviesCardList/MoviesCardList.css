@@ -66,4 +66,14 @@
   .cards {
     grid-template-columns: 100%;
   }
+
+  .cards-container {
+    margin: 50px auto 0;
+    width: calc(100% - 20px);
+  }
+
+  .cards__button-more {
+    margin: 80px 0 80px;
+    width: 240px;
+  }
 }

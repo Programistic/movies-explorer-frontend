@@ -21,3 +21,9 @@
 .navTab__item:hover {
   opacity: .7;
 }
+
+@media screen and (max-width: 580px) {
+  .navTab__item {
+    font: 500 11px/16px 'Inter', 'Arial', sans-serif;
+  }
+}
