@@ -15,24 +15,30 @@ function MenuSignIn() {
     setIsMenuOpen(false);
   };
 
+  const isDesctop = (window.innerWidth > 769);
+
   return (
     <>
-      <nav className="menu">
-        <div className="menu__inner-container">
-          <Link to="/movies" className="menu__link menu__link_role_movies">Фильмы</Link>
-          <Link to="/saved-movies" className="menu__link menu__link_role_saved-movies">Сохранённые фильмы</Link>
-        </div>
-        <Link to="/accaunt" className="menu__link menu__link_role_accaunt">
-          <p className="accaunt-text">Аккаунт</p>
-          <div className="accaunt-icon__container">
-            <img className="accaunt-icon" src={accauntIcon} alt="Логотип аккаунт" />
-          </div>
-        </Link>
-      </nav>
+      {
+        isDesctop && (
+          <nav className="menu">
+            <div className="menu__inner-container">
+              <Link to="/movies" className="menu__link menu__link_role_movies">Фильмы</Link>
+              <Link to="/saved-movies" className="menu__link menu__link_role_saved-movies">Сохранённые фильмы</Link>
+            </div>
+            <Link to="/accaunt" className="menu__link menu__link_role_accaunt">
+              <p className="accaunt-text">Аккаунт</p>
+              <div className="accaunt-icon__container">
+                <img className="accaunt-icon" src={accauntIcon} alt="Логотип аккаунт" />
+              </div>
+            </Link>
+          </nav>
+        )
+      }
       {
         isMenuOpen ? (
           <div className="mobile-menu__underlay">
-            <div className="mobile-menu">
+            <nav className="mobile-menu">
               <button className="mobile-menu__close-button" type="button" aria-label="Закрыть меню" onClick={handleMenuClose}></button>
               <ul className="mobile-menu__list">
                 <li className="mobile-menu__item list-item">
@@ -53,7 +59,7 @@ function MenuSignIn() {
                   </Link>
                 </li>
               </ul>
-            </div>
+            </nav>
           </div>
         ) : (
           <button className="burger-menu" type="button" aria-label="Меню" onClick={handleMenuOpen}></button>

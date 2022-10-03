@@ -13,7 +13,7 @@ function MoviesCardList({ isMoreCards, path }) {
         <Card />
         <Card />
       </ul>
-      { isMoreCards && <button className="cards__button-more" type="button" aria-label="Ещё" onClick="">Ещё</button> }
+      { isMoreCards && <button className="cards__button-more" type="button" aria-label="Ещё">Ещё</button> }
     </section>
   );
 }

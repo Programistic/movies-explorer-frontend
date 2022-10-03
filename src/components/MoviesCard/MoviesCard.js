@@ -12,14 +12,14 @@ function MoviesCard({ isSaved, isInSavedMovies }) {
         </div>
         {
           (isSaved ? (
-            <button className={`card__movie-selector ${isInSavedMovies ? 'card__movie-selector_type_delete' : 'card__movie-selector_type_saved'}`} type="button" aria-label="Удалить из сохранённых" onClick=""></button>
+            <button className={`card__movie-selector ${isInSavedMovies ? 'card__movie-selector_type_delete' : 'card__movie-selector_type_saved'}`} type="button" aria-label="Удалить из сохранённых"></button>
           ) : (
-            <button className="card__movie-selector card__movie-selector_type_unsaved" type="button" aria-label="Добавить в сохранённые" onClick=""></button>
+            <button className="card__movie-selector card__movie-selector_type_unsaved" type="button" aria-label="Добавить в сохранённые"></button>
           ))
         }
       </div>
       <a href="#" className="card__movie-link" target="_blank" rel="">
-        <img src={movieImage} className="card__movie-image" alt="" onClick="" />
+        <img src={movieImage} className="card__movie-image" alt="Заставка фильма" />
       </a>
     </li>
   );
