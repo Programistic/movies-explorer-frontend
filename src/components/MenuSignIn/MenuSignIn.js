@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import WindowWidthMonitor from '../WindowWidthMonitor/WindowWidthMonitor';
 import accauntIcon from '../../images/accaunt.svg';
 import '../App/App.css';
 import './MenuSignIn.css';
@@ -15,7 +16,9 @@ function MenuSignIn() {
     setIsMenuOpen(false);
   };
 
-  const isDesctop = (window.innerWidth > 769);
+  const windowWidth = WindowWidthMonitor();
+
+  const isDesctop = (windowWidth.width > 769);
 
   return (
     <>
@@ -26,7 +29,7 @@ function MenuSignIn() {
               <Link to="/movies" className="menu__link menu__link_role_movies">Фильмы</Link>
               <Link to="/saved-movies" className="menu__link menu__link_role_saved-movies">Сохранённые фильмы</Link>
             </div>
-            <Link to="/accaunt" className="menu__link menu__link_role_accaunt">
+            <Link to="/profile" className="menu__link menu__link_role_accaunt">
               <p className="accaunt-text">Аккаунт</p>
               <div className="accaunt-icon__container">
                 <img className="accaunt-icon" src={accauntIcon} alt="Логотип аккаунт" />
@@ -51,7 +54,7 @@ function MenuSignIn() {
                   <Link to="/saved-movies" className="menu__link mobile-menu__link_role_saved-movies">Сохранённые фильмы</Link>
                 </li>
                 <li className="mobile-menu__item list-item">
-                  <Link to="/" className="menu__link mobile-menu__link_role_accaunt">
+                  <Link to="/profile" className="menu__link mobile-menu__link_role_accaunt">
                     <p className="accaunt-text">Аккаунт</p>
                     <div className="accaunt-icon__container">
                       <img className="accaunt-icon" src={accauntIcon} alt="Логотип аккаунт" />

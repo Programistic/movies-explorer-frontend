@@ -23,7 +23,7 @@
   align-self: center;
   max-width: 730px;
   margin: 0;
-  padding: 0;
+  padding: 0 30px;
   font: 400 50px/58px 'Inter', 'Arial', sans-serif;
   color: #fff;
   text-align: center;
@@ -37,6 +37,13 @@
   }
 
   .promo__title {
+    padding: 0 14px;
     font: 400 31px/39px 'Inter', 'Arial', sans-serif;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .promo__title {
+    padding: 0;
   }
 }
