@@ -1,0 +1,12 @@
+.logo__link {
+  transition: opacity .15s ease;
+}
+
+.logo__link:hover {
+  opacity: .7;
+}
+
+.logo__image {
+  width: 38px;
+  height: 38px;
+}
