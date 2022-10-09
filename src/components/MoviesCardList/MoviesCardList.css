@@ -5,7 +5,7 @@
   margin: 68px auto 0;
   padding: 80px 0 0;
   max-width: 1140px;
-  min-height: 30vh;
+  min-height: 46vh;
   border-top: 1px solid #e8e8e8;
 }
 
@@ -35,6 +35,14 @@
 
 .cards__button-more:hover {
   opacity: .7;
+}
+
+.message {
+  margin: 30px 0;
+  padding: 0;
+  font: 400 16px/18px 'Inter', 'Arial', sans-serif;
+  color: #000;
+  text-align: center;
 }
 
 @media screen and (max-width: 1200px) {

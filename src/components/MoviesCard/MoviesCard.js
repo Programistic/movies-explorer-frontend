@@ -1,14 +1,17 @@
 import './MoviesCard.css';
 import '../App/App.css';
-import movieImage from '../../images/img-movie-1.svg';
+import { API_URL } from '../../utils/constants';
+import TimeConversion from '../TimeConversion/TimeConversion';
 
-function MoviesCard({ isSaved, isInSavedMovies }) {
+function MoviesCard({ isSaved, isInSavedMovies, movie }) {
+  const movieImage = `${API_URL}${movie.image.url}`;
+  const duration = TimeConversion(movie.duration);
   return (
     <li className="card list-item">
       <div className="card__header">
         <div className="card__inner-container">
-          <h2 className="card__movie-title">33 слова о дизайне</h2>
-          <p className="card__movie-duration">1ч 47м</p>
+          <h2 className="card__movie-title">{movie.nameRU}</h2>
+          <p className="card__movie-duration">{duration}</p>
         </div>
         {
           (isSaved ? (
@@ -18,8 +21,8 @@ function MoviesCard({ isSaved, isInSavedMovies }) {
           ))
         }
       </div>
-      <a href="#" className="card__movie-link" target="_blank" rel="">
-        <img src={movieImage} className="card__movie-image" alt="Заставка фильма" />
+      <a href={movie.trailerLink || '#'} className="card__movie-link" target="_blank" rel="noreferrer">
+        <img src={movieImage} className="card__movie-image" alt={movie.nameRU || 'Изображение не загружено'} />
       </a>
     </li>
   );

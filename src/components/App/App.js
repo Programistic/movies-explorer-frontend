@@ -1,3 +1,4 @@
+import { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
@@ -10,43 +11,53 @@ import Register from '../Register/Register';
 import NotFound from '../NotFound/NotFound';
 import './App.css';
 
-function App() {
-  return (
-    <div className="page">
-      <div className="container">
-        <Switch>
-          <Route exact path="/">
-            <Header path="/" loggedIn={false} />
-            <Main />
-            <Footer />
-          </Route>
-          <Route exact path="/movies">
-            <Header loggedIn={true} />
-            <Movies />
-            <Footer />
-          </Route>
-          <Route exact path="/saved-movies">
-            <Header loggedIn={true} />
-            <SavedMovies path="/saved-movies" />
-            <Footer />
-          </Route>
-          <Route exact path="/profile">
-            <Header loggedIn={true} />
-            <Profile />
-          </Route>
-          <Route exact path="/signin">
-            <Login />
-          </Route>
-          <Route exact path="/signup">
-            <Register />
-          </Route>
-          <Route exact path="/notfound">
-            <NotFound />
-          </Route>
-        </Switch>
+class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      loggedIn: true,
+    };
+  }
+
+  render() {
+    return (
+      <div className="page">
+        <div className="container">
+          <Switch>
+            <Route exact path="/">
+              <Header path="/" loggedIn={this.state.loggedIn} />
+              <Main />
+              <Footer />
+            </Route>
+            <Route exact path="/movies">
+              <Header loggedIn={this.state.loggedIn} />
+              <Movies />
+              <Footer />
+            </Route>
+            <Route exact path="/saved-movies">
+              <Header loggedIn={this.state.loggedIn} />
+              <SavedMovies path="/saved-movies" />
+              <Footer />
+            </Route>
+            <Route exact path="/profile">
+              <Header loggedIn={this.state.loggedIn} />
+              <Profile />
+            </Route>
+            <Route exact path="/signin">
+              <Login />
+            </Route>
+            <Route exact path="/signup">
+              <Register />
+            </Route>
+            <Route exact path="/notfound">
+              <NotFound />
+            </Route>
+          </Switch>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 export default App;
