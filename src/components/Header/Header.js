@@ -9,7 +9,7 @@ function Header({ path, loggedIn }) {
     <header className={`header ${isHomePage ? 'header_color_dark' : ''}`}>
       <Logo />
       {
-        loggedIn ? <MenuSignIn /> : <MenuSignOut />
+        loggedIn ? <MenuSignIn path={path} /> : <MenuSignOut />
       }
     </header>
   );

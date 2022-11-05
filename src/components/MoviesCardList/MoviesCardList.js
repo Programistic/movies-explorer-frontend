@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import Card from '../MoviesCard/MoviesCard';
 import WindowWidthMonitor from '../WindowWidthMonitor/WindowWidthMonitor';
+import Preloader from '../Preloader/Preloader';
 import './MoviesCardList.css';
 
 function MoviesCardList({
@@ -8,6 +9,7 @@ function MoviesCardList({
   movies,
   isShowCardList,
   isShowMessage,
+  isShowPreloader,
 }) {
   const windowWidth = WindowWidthMonitor();
   const isSavedMoviesPage = path === '/saved-movies';
@@ -46,6 +48,7 @@ function MoviesCardList({
   return (
     <section className="cards-container">
       { isShowMessage && <p className="message">Ничего не найдено!</p> }
+      { isShowPreloader && <Preloader /> }
       <ul className="cards">
         {isShowCardList && moviesList}
       </ul>

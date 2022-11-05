@@ -51,7 +51,7 @@
   }
 
   .cards {
-    grid-template-columns: repeat(3, calc((100% - 48px) / 3));
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
@@ -61,7 +61,7 @@
   }
 
   .cards {
-    grid-template-columns: repeat(2, calc((100% - 30px) / 2));
+    grid-template-columns: repeat(2, 1fr);
     gap: 36px 30px;
   }
 
@@ -72,7 +72,7 @@
 
 @media screen and (max-width: 580px) {
   .cards {
-    grid-template-columns: 100%;
+    grid-template-columns: 1fr;
   }
 
   .cards-container {

@@ -1,11 +1,14 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import WindowWidthMonitor from '../WindowWidthMonitor/WindowWidthMonitor';
-import accauntIcon from '../../images/accaunt.svg';
+import accauntIconBlack from '../../images/accaunt.svg';
 import '../App/App.css';
 import './MenuSignIn.css';
 
-function MenuSignIn() {
+function MenuSignIn({ path }) {
+  const isHomePage = path === '/';
+  const isMovies = path === '/movies';
+  const isSavedMovies = path === '/saved-movies';
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleMenuOpen = () => {
@@ -24,15 +27,15 @@ function MenuSignIn() {
     <>
       {
         isDesctop && (
-          <nav className="menu">
+          <nav className="menu menu_place_header">
             <div className="menu__inner-container">
-              <Link to="/movies" className="menu__link menu__link_role_movies">Фильмы</Link>
-              <Link to="/saved-movies" className="menu__link menu__link_role_saved-movies">Сохранённые фильмы</Link>
+              <Link to="/movies" className={`menu__link menu__link_role_movies ${isMovies ? 'menu__link_active' : ''} ${isHomePage ? 'menu__link_place_homepage' : ''}`}>Фильмы</Link>
+              <Link to="/saved-movies" className={`menu__link menu__link_role_saved-movies ${isSavedMovies ? 'menu__link_active' : ''} ${isHomePage ? 'menu__link_place_homepage' : ''}`}>Сохранённые фильмы</Link>
             </div>
-            <Link to="/profile" className="menu__link menu__link_role_accaunt">
+            <Link to="/profile" className={`menu__link menu__link_role_accaunt ${isHomePage ? 'menu__link_place_homepage' : ''}`}>
               <p className="accaunt-text">Аккаунт</p>
               <div className="accaunt-icon__container">
-                <img className="accaunt-icon" src={accauntIcon} alt="Логотип аккаунт" />
+                <img className="accaunt-icon" src={accauntIconBlack} alt="Логотип аккаунт" />
               </div>
             </Link>
           </nav>
@@ -57,7 +60,7 @@ function MenuSignIn() {
                   <Link to="/profile" className="menu__link mobile-menu__link_role_accaunt">
                     <p className="accaunt-text">Аккаунт</p>
                     <div className="accaunt-icon__container">
-                      <img className="accaunt-icon" src={accauntIcon} alt="Логотип аккаунт" />
+                      <img className="accaunt-icon" src={accauntIconBlack} alt="Логотип аккаунт" />
                     </div>
                   </Link>
                 </li>
@@ -65,7 +68,7 @@ function MenuSignIn() {
             </nav>
           </div>
         ) : (
-          <button className="burger-menu" type="button" aria-label="Меню" onClick={handleMenuOpen}></button>
+          <button className={`burger-menu ${isHomePage ? 'burger-menu_place_homepage' : ''}`} type="button" aria-label="Меню" onClick={handleMenuOpen}></button>
         )
       }
     </>
