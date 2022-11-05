@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import ProtectedRoute from '../ProtectedRoute';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
