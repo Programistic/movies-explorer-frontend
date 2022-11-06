@@ -108,6 +108,27 @@
   padding: 0;
 }
 
+.button_active {
+  color: #fff;
+  background-color: #3456f3;
+  transition: opacity .24s ease;
+  cursor: pointer;
+}
+
+.button_active:hover {
+  opacity: .7;
+}
+
+.button_inactive {
+  color: #a0a0a0;
+  background-color: #f8f8f8;
+  cursor: inherit;
+}
+
+.button_inactive:hover {
+  opacity: 1;
+}
+
 @media screen and (max-width: 769px) {
   .menu {
 
