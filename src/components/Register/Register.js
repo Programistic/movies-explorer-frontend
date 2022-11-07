@@ -1,6 +1,13 @@
 import { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../Logo/Logo';
+import {
+  NAME_PATTERN,
+  EMAIL_PATTERN,
+  NAME_ERROR_MESSAGE,
+  EMAIL_ERROR_MESSAGE,
+  PASSWORD_ERROR_MESSAGE,
+} from '../../utils/constants';
 import '../App/App.css';
 import './Register.css';
 
@@ -45,28 +52,28 @@ class Register extends Component {
 
     switch (fieldName) {
       case 'name':
-        nameValid = value.match(/([А-ЯЁа-яёa-z-\s]+)/ig);
+        nameValid = value.match(NAME_PATTERN);
         if (nameValid !== null) {
-          fieldValidationErrors.name = nameValid[0].length === value.length ? '' : 'Имя может содержать только кирилицу, латиницу, пробел или дефис!';
+          fieldValidationErrors.name = nameValid[0].length === value.length ? '' : NAME_ERROR_MESSAGE;
         } else if (value === '') {
           fieldValidationErrors.name = '';
         } else {
-          fieldValidationErrors.name = 'Имя может содержать только кирилицу, латиницу, пробел или дефис!';
+          fieldValidationErrors.name = NAME_ERROR_MESSAGE;
         }
         break;
       case 'email':
-        emailValid = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
+        emailValid = value.match(EMAIL_PATTERN);
         if (emailValid !== null) {
-          fieldValidationErrors.email = emailValid[0].length === value.length ? '' : 'Введён некорректный email!';
+          fieldValidationErrors.email = emailValid[0].length === value.length ? '' : EMAIL_ERROR_MESSAGE;
         } else if (value === '') {
           fieldValidationErrors.email = '';
         } else {
-          fieldValidationErrors.email = 'Введён некорректный email!';
+          fieldValidationErrors.email = EMAIL_ERROR_MESSAGE;
         }
         break;
       case 'password':
         passwordValid = value.length >= 6;
-        fieldValidationErrors.password = passwordValid ? '' : 'Пароль не должен быть короче шести символов!';
+        fieldValidationErrors.password = passwordValid ? '' : PASSWORD_ERROR_MESSAGE;
         if (value === '') {
           fieldValidationErrors.password = '';
         }
