@@ -56,11 +56,20 @@ class Register extends Component {
         break;
       case 'email':
         emailValid = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
-        fieldValidationErrors.email = emailValid ? '' : 'Некорректный email!';
+        if (emailValid !== null) {
+          fieldValidationErrors.email = emailValid[0].length === value.length ? '' : 'Введён некорректный email!';
+        } else if (value === '') {
+          fieldValidationErrors.email = '';
+        } else {
+          fieldValidationErrors.email = 'Введён некорректный email!';
+        }
         break;
       case 'password':
         passwordValid = value.length >= 6;
         fieldValidationErrors.password = passwordValid ? '' : 'Пароль не должен быть короче шести символов!';
+        if (value === '') {
+          fieldValidationErrors.password = '';
+        }
         break;
       default:
         break;
