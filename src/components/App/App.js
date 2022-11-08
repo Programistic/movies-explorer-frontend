@@ -22,7 +22,6 @@ class App extends Component {
       loggedIn: false,
       isRegister: false,
     };
-    // this.handleLogin = this.handleLogin.bind(this);
   }
 
   handleLogin = (email, password) => {

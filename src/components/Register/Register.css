@@ -39,14 +39,6 @@
   outline: none;
 }
 
-.register__text-warning {
-  min-height: 12.1px;
-  margin: 6px 0 0;
-  padding: 0;
-  font: 400 10px/12.1px 'Inter', 'Arial', sans-serif;
-  color: #ff3055;
-}
-
 .register__line {
   width: 396px;
   height: 1px;

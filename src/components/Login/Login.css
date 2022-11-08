@@ -37,6 +37,7 @@
   font: 500 14px/16,9px 'Inter', 'Arial', sans-serif;
   color: #000;
   border: 0;
+  outline: none;
 }
 
 .login__line {
@@ -50,16 +51,8 @@
   width: 396px;
   height: 45px;
   font: 400 14px/16.9px 'Inter', 'Arial', sans-serif;
-  color: #fff;
   border: 0;
   border-radius: 3px;
-  background-color: #3456f3;
-  transition: opacity .24s ease;
-  cursor: pointer;
-}
-
-.login__button:hover {
-  opacity: .7;
 }
 
 .login__link-container {

@@ -114,7 +114,7 @@ class Register extends Component {
             onChange={this.handleChange}
           />
           <div className="register__line line_color_grey"></div>
-          <span className="register__text-warning">{this.state.formErrors.name}</span>
+          <span className="text-warning">{this.state.formErrors.name}</span>
           <label className="register__label">E-mail</label>
           <input
             className="register__input"
@@ -125,7 +125,7 @@ class Register extends Component {
             onChange={this.handleChange}
           />
           <div className="register__line line_color_grey"></div>
-          <span className="register__text-warning">{this.state.formErrors.email}</span>
+          <span className="text-warning">{this.state.formErrors.email}</span>
           <label className="register__label">Пароль</label>
           <input
             className="register__input"
@@ -136,7 +136,7 @@ class Register extends Component {
             onChange={this.handleChange}
           />
           <div className="register__line line_color_grey"></div>
-          <span className="register__text-warning">{this.state.formErrors.password}</span>
+          <span className="text-warning">{this.state.formErrors.password}</span>
         </div>
         <button type="submit" className={` register__button_role_signup ${!this.state.formValid ? 'button_inactive' : 'button_active'} register__button`} disabled={!this.state.formValid}>Зарегистрироваться</button>
         <div className="register__link-container">
