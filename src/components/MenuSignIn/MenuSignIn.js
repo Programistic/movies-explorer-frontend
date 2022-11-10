@@ -9,6 +9,7 @@ function MenuSignIn({ path }) {
   const isHomePage = path === '/';
   const isMovies = path === '/movies';
   const isSavedMovies = path === '/saved-movies';
+  const isProfile = path === '/profile';
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleMenuOpen = () => {
@@ -32,7 +33,7 @@ function MenuSignIn({ path }) {
               <Link to="/movies" className={`menu__link menu__link_role_movies ${isMovies ? 'menu__link_active' : ''} ${isHomePage ? 'menu__link_place_homepage' : ''}`}>Фильмы</Link>
               <Link to="/saved-movies" className={`menu__link menu__link_role_saved-movies ${isSavedMovies ? 'menu__link_active' : ''} ${isHomePage ? 'menu__link_place_homepage' : ''}`}>Сохранённые фильмы</Link>
             </div>
-            <Link to="/profile" className={`menu__link menu__link_role_accaunt ${isHomePage ? 'menu__link_place_homepage' : ''}`}>
+            <Link to="/profile" className={`menu__link menu__link_role_accaunt ${isProfile ? 'menu__link_active' : ''} ${isHomePage ? 'menu__link_place_homepage' : ''}`}>
               <p className="accaunt-text">Аккаунт</p>
               <div className="accaunt-icon__container">
                 <img className="accaunt-icon" src={accauntIconBlack} alt="Логотип аккаунт" />

@@ -79,8 +79,9 @@ class App extends Component {
             </ProtectedRoute>
 
             <ProtectedRoute
-              path="/profile">
-              <Header loggedIn={this.state.loggedIn} />
+              path="/profile"
+              loggedIn={this.state.loggedIn}>
+              <Header path="/profile" loggedIn={this.state.loggedIn} />
               <Profile />
             </ProtectedRoute>
 

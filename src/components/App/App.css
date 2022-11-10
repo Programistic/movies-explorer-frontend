@@ -133,17 +133,12 @@
 }
 
 .text-warning {
+  display: block;
   min-height: 12.1px;
   margin: 6px 0 0;
   padding: 0;
   font: 400 10px/12.1px 'Inter', 'Arial', sans-serif;
   color: #ff3055;
-}
-
-@media screen and (max-width: 769px) {
-  .menu {
-
-  }
 }
 
 @media screen and (max-width: 580px) {
