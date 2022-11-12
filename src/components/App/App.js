@@ -1,5 +1,7 @@
 import { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import { LoggedInContext } from '../../contexts/LoggedInContext';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
@@ -11,6 +13,7 @@ import Login from '../Login/Login';
 import Register from '../Register/Register';
 import NotFound from '../NotFound/NotFound';
 import * as Auth from '../../utils/Auth';
+import * as MainApi from '../../utils/MainApi';
 import withRouter from '../../utils/WithRouter';
 import './App.css';
 
@@ -21,7 +24,10 @@ class App extends Component {
     this.state = {
       loggedIn: false,
       isRegister: false,
+      currentUser: {},
     };
+
+    this.tokenCheck = this.tokenCheck.bind(this);
   }
 
   handleLogin = (email, password) => {
@@ -52,57 +58,107 @@ class App extends Component {
       });
   };
 
+  componentDidMount = () => {
+    this.tokenCheck();
+  };
+
+  tokenCheck = () => {
+    if (localStorage.getItem('jwt')) {
+      const jwt = localStorage.getItem('jwt');
+      if (jwt) {
+        MainApi
+          .getCurrentUser(jwt)
+          .then((res) => {
+            if (res) {
+              this.setState({
+                loggedIn: true,
+                currentUser: res.user,
+              }, () => {
+                this.props.history.push('/');
+              });
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    }
+  };
+
+  editCurrentUser = (email, name) => {
+    MainApi
+      .editCurrentUser(email, name)
+      .then((res) => {
+        if (res) {
+          this.setState({
+            currentUser: res.user,
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  resetLoggedIn = () => {
+    this.setState({
+      loggedIn: false,
+    });
+  };
+
   render() {
     return (
       <div className="page">
         <div className="container">
-          <Switch>
+          <CurrentUserContext.Provider value={this.state.currentUser}>
+          <LoggedInContext.Provider value={this.state.loggedIn}>
 
-            <Route
-              exact path="/">
-              <Header path="/" loggedIn={this.state.loggedIn} />
-              <Main />
-            </Route>
+            <Switch>
 
-            <ProtectedRoute
-              path="/movies"
-              loggedIn={this.state.loggedIn}>
-              <Header path="/movies" loggedIn={this.state.loggedIn} />
-              <Movies />
-            </ProtectedRoute>
+              <Route
+                exact path="/">
+                <Header path="/" />
+                <Main />
+              </Route>
 
-            <ProtectedRoute
-              path="/saved-movies"
-              loggedIn={this.state.loggedIn}>
-              <Header path="/saved-movies" loggedIn={this.state.loggedIn} />
-              <SavedMovies />
-            </ProtectedRoute>
+              <ProtectedRoute
+                path="/movies">
+                <Header path="/movies" />
+                <Movies />
+              </ProtectedRoute>
 
-            <ProtectedRoute
-              path="/profile"
-              loggedIn={this.state.loggedIn}>
-              <Header path="/profile" loggedIn={this.state.loggedIn} />
-              <Profile />
-            </ProtectedRoute>
+              <ProtectedRoute
+                path="/saved-movies">
+                <Header path="/saved-movies" />
+                <SavedMovies />
+              </ProtectedRoute>
 
-            <Route
-              path="/signin">
-              <Login onLogin={this.handleLogin}/>
-            </Route>
+              <ProtectedRoute
+                path="/profile">
+                <Header path="/profile" />
+                <Profile resetLoggedIn={this.resetLoggedIn} editCurrentUser={this.editCurrentUser}/>
+              </ProtectedRoute>
 
-            <Route
-              path="/signup">
-              <Register onRegister={this.handleRegister}/>
-            </Route>
+              <Route
+                path="/signin">
+                <Login onLogin={this.handleLogin}/>
+              </Route>
 
-            <Route
-              path="/notfound">
-              <NotFound />
-            </Route>
+              <Route
+                path="/signup">
+                <Register onRegister={this.handleRegister}/>
+              </Route>
 
-          </Switch>
+              <Route
+                path="/notfound">
+                <NotFound />
+              </Route>
 
-          <Footer />
+            </Switch>
+
+            <Footer />
+          </LoggedInContext.Provider>
+          </CurrentUserContext.Provider>
         </div>
       </div>
     );

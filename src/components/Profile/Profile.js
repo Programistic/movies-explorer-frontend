@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import withRouter from '../../utils/WithRouter';
 import {
   NAME_PATTERN,
@@ -10,13 +11,13 @@ import '../App/App.css';
 import './Profile.css';
 
 class Profile extends Component {
-  constructor({ props, onUserCreate }) {
+  constructor({ props, editCurrentUser, resetLoggedIn }) {
     super(props);
 
-    this.onUserCreate = onUserCreate;
+    this.editCurrentUser = editCurrentUser;
+    this.resetLoggedIn = resetLoggedIn;
 
     this.state = {
-      loggedIn: false,
       name: '',
       email: '',
       nameValid: false,
@@ -25,13 +26,13 @@ class Profile extends Component {
       formErrors: { name: '', email: '' },
       buttonState: '',
     };
-
-    this.signOut = this.signOut.bind(this);
   }
+
+  static contextType = CurrentUserContext;
 
   handleSubmit = (event) => {
     event.preventDefault();
-    this.onUserCreate(this.state.name, this.state.email);
+    this.editCurrentUser(this.state.email, this.state.name);
   };
 
   handleChange = (event) => {
@@ -87,15 +88,16 @@ class Profile extends Component {
     });
   }
 
-  signOut() {
+  handleSignOut = () => {
     localStorage.removeItem('jwt');
+    this.resetLoggedIn();
     this.props.history.push('/');
-  }
+  };
 
   render() {
     return (
       <form className="profile" onSubmit={this.handleSubmit}>
-        <h2 className="profile__title">Привет, Максим!</h2>
+        <h2 className="profile__title">{`Привет, ${this.context.name}!`}</h2>
         <div className="profile__form">
           <div className="profile__container">
             <label className="profile__label">Имя</label>
@@ -124,7 +126,7 @@ class Profile extends Component {
           <span className="text-warning">{this.state.formErrors.email}</span>
         </div>
         <button type="submit" className={`profile__button_role_edit ${!this.state.formValid ? 'button_inactive' : 'profile-button_active'} profile__button`} disabled={!this.state.formValid}>Редактировать</button>
-        <button onClick={this.signOut} className="profile__button profile__button_role_signout">Выйти из аккаунта</button>
+        <button onClick={this.handleSignOut} className="profile__button profile__button_role_signout">Выйти из аккаунта</button>
       </form>
     );
   }

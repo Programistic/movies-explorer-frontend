@@ -12,7 +12,7 @@ function MoviesCardList({
   isShowPreloader,
 }) {
   const windowWidth = WindowWidthMonitor();
-  const isSavedMoviesPage = path === '/saved-movies';
+  // const isSavedMoviesPage = path === '/saved-movies';
   const [numberCardsLoaded, setNumberCardsLoaded] = useState(3);
   const [numberCardsDisplayed, setNumberCardsDisplayed] = useState(12);
 

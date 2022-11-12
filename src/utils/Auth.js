@@ -1,4 +1,4 @@
-export const BASE_URL = `${window.location.protocol}${'//api.films-explorer.nomoredomains.sbs'}`;
+import { BASE_URL } from './constants';
 
 export const getResponseData = (res) => (res.ok ? res.json() : Promise.reject(new Error(`Error ${res.status}`)));
 
