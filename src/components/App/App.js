@@ -51,7 +51,7 @@ class App extends Component {
     Auth
       .register(userName, userEmail, userPassword)
       .then(() => {
-        this.props.history.push('./signin');
+        this.props.history.push('./movies');
       })
       .catch((err) => {
         console.log(err);

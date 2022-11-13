@@ -22,7 +22,6 @@ class Login extends Component {
       passwordValid: false,
       formValid: false,
       formErrors: { email: '', password: '' },
-      buttonState: '',
     };
   }
 
@@ -77,7 +76,6 @@ class Login extends Component {
   validateForm() {
     this.setState({
       formValid: this.state.emailValid && this.state.passwordValid,
-      buttonState: this.state.formValid ? '' : 'disabled',
     });
   }
 

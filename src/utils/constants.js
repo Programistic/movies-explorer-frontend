@@ -5,5 +5,7 @@ export const SHORT_MOVIE_DURATION = 40;
 export const NAME_PATTERN = /([А-ЯЁа-яёa-z-\s]+)/ig;
 export const EMAIL_PATTERN = /^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i;
 export const NAME_ERROR_MESSAGE = 'Имя может содержать только кирилицу, латиницу, пробел или дефис!';
+export const NAME_NOT_ENTERED_ERROR_MESSAGE = 'Не введено имя пользователя!';
 export const EMAIL_ERROR_MESSAGE = 'Введён некорректный email!';
+export const EMAIL_NOT_ENTERED_ERROR_MESSAGE = 'Не введён адрес электронной почты!';
 export const PASSWORD_ERROR_MESSAGE = 'Пароль не должен быть короче шести символов!';

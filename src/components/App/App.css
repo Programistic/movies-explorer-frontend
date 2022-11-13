@@ -135,8 +135,9 @@
 .text-warning {
   display: block;
   min-height: 12.1px;
-  margin: 6px 0 0;
+  margin: 4px 0 0;
   padding: 0;
+  text-align: end;
   font: 400 10px/12.1px 'Inter', 'Arial', sans-serif;
   color: #ff3055;
 }

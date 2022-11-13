@@ -42,6 +42,8 @@
 .login__line {
   width: 396px;
   height: 1px;
+  margin: 0 0 2px;
+  padding: 0;
 }
 
 .login__button {

@@ -5,7 +5,9 @@ import {
   NAME_PATTERN,
   EMAIL_PATTERN,
   NAME_ERROR_MESSAGE,
+  NAME_NOT_ENTERED_ERROR_MESSAGE,
   EMAIL_ERROR_MESSAGE,
+  EMAIL_NOT_ENTERED_ERROR_MESSAGE,
 } from '../../utils/constants';
 import '../App/App.css';
 import './Profile.css';
@@ -20,19 +22,26 @@ class Profile extends Component {
     this.state = {
       name: '',
       email: '',
-      nameValid: false,
-      emailValid: false,
+      nameValid: [],
+      emailValid: [],
       formValid: false,
       formErrors: { name: '', email: '' },
-      buttonState: '',
     };
   }
 
   static contextType = CurrentUserContext;
 
+  componentDidMount() {
+    this.setState({
+      name: this.context.name,
+      email: this.context.email,
+    });
+  }
+
   handleSubmit = (event) => {
     event.preventDefault();
     this.editCurrentUser(this.state.email, this.state.name);
+    this.setState({ formValid: false });
   };
 
   handleChange = (event) => {
@@ -55,7 +64,7 @@ class Profile extends Component {
         if (nameValid !== null) {
           fieldValidationErrors.name = nameValid[0].length === value.length ? '' : NAME_ERROR_MESSAGE;
         } else if (value === '') {
-          fieldValidationErrors.name = '';
+          fieldValidationErrors.name = NAME_NOT_ENTERED_ERROR_MESSAGE;
         } else {
           fieldValidationErrors.name = NAME_ERROR_MESSAGE;
         }
@@ -65,7 +74,7 @@ class Profile extends Component {
         if (emailValid !== null) {
           fieldValidationErrors.email = emailValid[0].length === value.length ? '' : EMAIL_ERROR_MESSAGE;
         } else if (value === '') {
-          fieldValidationErrors.email = '';
+          fieldValidationErrors.email = EMAIL_NOT_ENTERED_ERROR_MESSAGE;
         } else {
           fieldValidationErrors.email = EMAIL_ERROR_MESSAGE;
         }
@@ -82,10 +91,11 @@ class Profile extends Component {
   }
 
   validateForm() {
-    this.setState({
-      formValid: this.state.nameValid && this.state.emailValid,
-      buttonState: this.state.formValid ? '' : 'disabled',
-    });
+    if (this.state.name === this.context.name && this.state.email === this.context.email) {
+      this.setState({ formValid: false });
+    } else {
+      this.setState({ formValid: this.state.formErrors.name === '' && this.state.formErrors.email === '' });
+    }
   }
 
   handleSignOut = () => {
@@ -110,8 +120,8 @@ class Profile extends Component {
               onChange={this.handleChange}
             />
           </div>
-          <div className="line line_color_grey"></div>
           <span className="text-warning">{this.state.formErrors.name}</span>
+          <div className="line line_color_grey"></div>
           <div className="profile__container">
             <label className="profile__label">E-mail</label>
             <input

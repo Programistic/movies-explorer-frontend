@@ -26,7 +26,6 @@ class Register extends Component {
       passwordValid: false,
       formValid: false,
       formErrors: { name: '', email: '', password: '' },
-      buttonState: '',
     };
   }
 
@@ -93,7 +92,6 @@ class Register extends Component {
   validateForm() {
     this.setState({
       formValid: this.state.nameValid && this.state.emailValid && this.state.passwordValid,
-      buttonState: this.state.formValid ? '' : 'disabled',
     });
   }
 
