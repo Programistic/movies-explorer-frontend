@@ -12,6 +12,7 @@ import Footer from '../Footer/Footer';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 import NotFound from '../NotFound/NotFound';
+import Tooltip from '../Tooltip/Tooltip';
 import * as Auth from '../../utils/Auth';
 import * as MainApi from '../../utils/MainApi';
 import withRouter from '../../utils/WithRouter';
@@ -25,6 +26,7 @@ class App extends Component {
       loggedIn: false,
       isRegister: false,
       currentUser: {},
+      isTooltipOpen: false,
     };
 
     this.tokenCheck = this.tokenCheck.bind(this);
@@ -92,6 +94,7 @@ class App extends Component {
         if (res) {
           this.setState({
             currentUser: res.user,
+            isTooltipOpen: true,
           });
         }
       })
@@ -103,6 +106,12 @@ class App extends Component {
   resetLoggedIn = () => {
     this.setState({
       loggedIn: false,
+    });
+  };
+
+  closeTooltip = () => {
+    this.setState({
+      isTooltipOpen: false,
     });
   };
 
@@ -136,17 +145,19 @@ class App extends Component {
               <ProtectedRoute
                 path="/profile">
                 <Header path="/profile" />
-                <Profile resetLoggedIn={this.resetLoggedIn} editCurrentUser={this.editCurrentUser}/>
+                <Profile
+                  resetLoggedIn={this.resetLoggedIn}
+                  editCurrentUser={this.editCurrentUser} />
               </ProtectedRoute>
 
               <Route
                 path="/signin">
-                <Login onLogin={this.handleLogin}/>
+                <Login onLogin={this.handleLogin} />
               </Route>
 
               <Route
                 path="/signup">
-                <Register onRegister={this.handleRegister}/>
+                <Register onRegister={this.handleRegister} />
               </Route>
 
               <Route
@@ -155,6 +166,8 @@ class App extends Component {
               </Route>
 
             </Switch>
+
+            <Tooltip onConfirm={this.closeTooltip} isOpen={this.state.isTooltipOpen} />
 
             <Footer />
           </LoggedInContext.Provider>
