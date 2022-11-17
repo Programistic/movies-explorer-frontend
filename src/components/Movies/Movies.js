@@ -16,9 +16,10 @@ class Movies extends Component {
       checkboxStatus: true,
       isShowPreloader: false,
       isShowCardList: false,
-      isShowMessage: false,
+      isShowNotFoundMessage: false,
       isMoviesLoaded: false,
       searchText: '',
+      lang: 'Ru',
     };
   }
 
@@ -35,10 +36,10 @@ class Movies extends Component {
         searchText,
       });
     }
-    if (localStorage.getItem('FilteredMovies')) {
+    if (localStorage.getItem('FilteredMovies').length !== 0) {
       const movies = JSON.parse(localStorage.getItem('FilteredMovies'));
       this.setState({
-        movies,
+        moviesFiltered: movies,
         isShowCardList: true,
       });
     }
@@ -62,32 +63,54 @@ class Movies extends Component {
 
   handleSearch = (searchText, checkboxStatus) => {
     this.setState({
+      isShowNotFoundMessage: false,
       isShowPreloader: true,
     });
     if (!this.state.isMoviesLoaded) {
       this.getMovies();
     }
     const movies = JSON.parse(localStorage.getItem('MoviesFromBeatfilm'));
-    const moviesFilteredBySearchText = FilterMoviesBySearchText(movies, searchText);
-    this.setState({
-      moviesFiltered: moviesFilteredBySearchText,
-    });
     if (checkboxStatus) {
-      const moviesFilteredByDuration = FilterMoviesByDuration(this.state.moviesFiltered);
-      setTimeout(() => (this.setState({
-        isShowPreloader: false,
-        movies: moviesFilteredByDuration,
-      })), 2500);
-      localStorage.setItem('FilteredMovies', JSON.stringify(moviesFilteredByDuration));
-    } else {
-        setTimeout(() => (this.setState({
+      const { moviesFilteredBySearchText, lang } = FilterMoviesBySearchText(movies, searchText);
+      this.setState({
+        lang,
+        checkboxStatus: true,
+      });
+      const moviesFilteredByDuration = FilterMoviesByDuration(moviesFilteredBySearchText);
+      if (moviesFilteredByDuration.length !== 0) {
+        this.setState({
           isShowPreloader: false,
-          movies: moviesFilteredBySearchText,
-        })), 2500);
-        localStorage.setItem('FilteredMovies', JSON.stringify(moviesFilteredBySearchText));
+          moviesFiltered: moviesFilteredByDuration,
+        });
+        localStorage.setItem('FilteredMovies', JSON.stringify(moviesFilteredByDuration));
+        localStorage.setItem('SearchText', searchText);
+        localStorage.setItem('CheckboxStatus', true);
+      } else {
+          this.setState({
+            isShowPreloader: false,
+            moviesFiltered: [],
+            isShowNotFoundMessage: true,
+          });
+      }
+    } else {
+        const { moviesFilteredBySearchText, lang } = FilterMoviesBySearchText(movies, searchText);
+        if (moviesFilteredBySearchText.length !== 0) {
+          this.setState({
+            isShowPreloader: false,
+            lang,
+            moviesFiltered: moviesFilteredBySearchText,
+          });
+          localStorage.setItem('FilteredMovies', JSON.stringify(moviesFilteredBySearchText));
+          localStorage.setItem('SearchText', searchText);
+          localStorage.setItem('CheckboxStatus', false);
+        } else {
+            this.setState({
+              isShowPreloader: false,
+              moviesFiltered: [],
+              isShowNotFoundMessage: true,
+            });
+        }
     }
-    localStorage.setItem('CheckboxStatus', checkboxStatus);
-    localStorage.setItem('SearchText', searchText);
   };
 
   render() {
@@ -100,9 +123,10 @@ class Movies extends Component {
         />
         <MoviesCardList
           isMoreCards={true}
-          movies={this.state.movies}
+          movies={this.state.moviesFiltered}
+          lang={this.state.lang}
           isShowCardList={this.state.isShowCardList}
-          isShowMessage={this.state.isShowMessage}
+          isShowNotFoundMessage={this.state.isShowNotFoundMessage}
           isShowPreloader={this.state.isShowPreloader}
         />
       </>

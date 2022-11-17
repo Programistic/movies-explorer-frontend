@@ -7,12 +7,13 @@ import './MoviesCardList.css';
 function MoviesCardList({
   path,
   movies,
+  lang,
   isShowCardList,
-  isShowMessage,
+  isShowNotFoundMessage,
   isShowPreloader,
 }) {
   const windowWidth = WindowWidthMonitor();
-  // const isSavedMoviesPage = path === '/saved-movies';
+  const isSavedMoviesPage = path === '/saved-movies';
   const [numberCardsLoaded, setNumberCardsLoaded] = useState(3);
   const [numberCardsDisplayed, setNumberCardsDisplayed] = useState(12);
 
@@ -41,13 +42,14 @@ function MoviesCardList({
     <Card
       key={movie.id}
       movie={movie}
+      lang={lang}
     />
   ))
   .slice(0, numberCardsDisplayed);
 
   return (
     <section className="cards-container">
-      { isShowMessage && <p className="message">Ничего не найдено!</p> }
+      { isShowNotFoundMessage && <p className="message">Ничего не найдено!</p> }
       { isShowPreloader && <Preloader /> }
       <ul className="cards">
         {isShowCardList && moviesList}

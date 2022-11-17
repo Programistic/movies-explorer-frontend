@@ -3,7 +3,7 @@ import findIcon from '../../images/find-icon.svg';
 import './SearchForm.css';
 import '../App/App.css';
 
-function SearchForm({ onSearch, searchText, checkbox }) {
+function SearchForm({ onSearch, checkbox }) {
   const [checkboxStatus, setCheckboxStatus] = useState(checkbox);
 
   const handleSearch = (event) => {
@@ -14,6 +14,8 @@ function SearchForm({ onSearch, searchText, checkbox }) {
   const handleCheckboxChange = () => {
     setCheckboxStatus(!checkboxStatus);
   };
+
+  const searchText = localStorage.getItem('SearchText');
 
   return (
     <>

@@ -100,6 +100,7 @@ class Profile extends Component {
 
   handleSignOut = () => {
     localStorage.removeItem('jwt');
+    localStorage.removeItem('FilteredMovies');
     this.resetLoggedIn();
     this.props.history.push('/');
   };

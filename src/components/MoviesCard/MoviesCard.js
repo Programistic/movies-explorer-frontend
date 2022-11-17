@@ -3,14 +3,20 @@ import '../App/App.css';
 import { API_URL } from '../../utils/constants';
 import TimeConversion from '../TimeConversion/TimeConversion';
 
-function MoviesCard({ isSaved, isInSavedMovies, movie }) {
+function MoviesCard({
+  isSaved,
+  isInSavedMovies,
+  movie,
+  lang,
+}) {
   const movieImage = `${API_URL}${movie.image.url}`;
   const duration = TimeConversion(movie.duration);
+  const movieName = lang === 'Ru' ? movie.nameRU : movie.nameEN;
   return (
     <li className="card list-item">
       <div className="card__header">
         <div className="card__inner-container">
-          <h2 className="card__movie-title">{movie.nameRU}</h2>
+          <h2 className="card__movie-title">{movieName}</h2>
           <p className="card__movie-duration">{duration}</p>
         </div>
         {
@@ -22,7 +28,7 @@ function MoviesCard({ isSaved, isInSavedMovies, movie }) {
         }
       </div>
       <a href={movie.trailerLink || '#'} className="card__movie-link" target="_blank" rel="noreferrer">
-        <img src={movieImage} className="card__movie-image" alt={movie.nameRU || 'Изображение не загружено'} />
+        <img src={movieImage} className="card__movie-image" alt={movieName || 'Изображение не загружено'} />
       </a>
     </li>
   );
