@@ -48,11 +48,11 @@ class Movies extends Component {
   getMovies() {
     moviesApi.getMovies()
       .then((moviesArray) => {
-        if (moviesArray.length) {
-          setTimeout(() => (this.setState({
+        if (moviesArray.length !== 0) {
+          this.setState({
             isShowPreloader: false,
             isMoviesLoaded: true,
-          })), 2500);
+          });
           localStorage.setItem('MoviesFromBeatfilm', JSON.stringify(moviesArray));
         }
       })
