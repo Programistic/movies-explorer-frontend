@@ -10,3 +10,4 @@ export const EMAIL_ERROR_MESSAGE = 'Введён некорректный email!
 export const EMAIL_NOT_ENTERED_ERROR_MESSAGE = 'Не введён адрес электронной почты!';
 export const PASSWORD_ERROR_MESSAGE = 'Пароль не должен быть короче шести символов!';
 export const UPDATE_SUCCESS_MESSAGE = 'Вы успешно обновили регистрационные данные!';
+export const NOT_FOUND_MESSAGE = 'Ничего не найдено!';
