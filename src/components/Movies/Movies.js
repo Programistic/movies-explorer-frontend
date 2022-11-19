@@ -13,7 +13,7 @@ class Movies extends Component {
       movies: [],
       moviesFiltered: [],
       isShortMovies: false,
-      checkboxStatus: true,
+      checkboxStatus: false,
       isShowPreloader: false,
       isShowCardList: false,
       isShowNotFoundMessage: false,
@@ -24,22 +24,24 @@ class Movies extends Component {
   }
 
   componentDidMount() {
-    if (localStorage.getItem('CheckboxStatus')) {
-      const checkboxStatus = localStorage.getItem('CheckboxStatus');
+    if (localStorage.getItem('CheckboxStatus') !== undefined) {
       this.setState({
-        checkboxStatus,
+        checkboxStatus: localStorage.getItem('CheckboxStatus'),
+      });
+    } else {
+      localStorage.setItem('CheckboxStatus', false);
+      this.setState({
+        checkboxStatus: false,
       });
     }
-    if (localStorage.getItem('SearchText')) {
-      const searchText = localStorage.getItem('SearchText');
+    if (localStorage.getItem('SearchText').length !== 0) {
       this.setState({
-        searchText,
+        searchText: localStorage.getItem('SearchText'),
       });
     }
     if (localStorage.getItem('FilteredMovies').length !== 0) {
-      const movies = JSON.parse(localStorage.getItem('FilteredMovies'));
       this.setState({
-        moviesFiltered: movies,
+        moviesFiltered: JSON.parse(localStorage.getItem('FilteredMovies')),
         isShowCardList: true,
       });
     }
@@ -84,7 +86,6 @@ class Movies extends Component {
         });
         localStorage.setItem('FilteredMovies', JSON.stringify(moviesFilteredByDuration));
         localStorage.setItem('SearchText', searchText);
-        localStorage.setItem('CheckboxStatus', true);
       } else {
           this.setState({
             isShowPreloader: false,
@@ -102,7 +103,6 @@ class Movies extends Component {
           });
           localStorage.setItem('FilteredMovies', JSON.stringify(moviesFilteredBySearchText));
           localStorage.setItem('SearchText', searchText);
-          localStorage.setItem('CheckboxStatus', false);
         } else {
             this.setState({
               isShowPreloader: false,
@@ -118,8 +118,6 @@ class Movies extends Component {
       <>
         <SearchForm
           onSearch={this.handleSearch}
-          searchText={this.state.searchText}
-          checkboxStatus={this.state.checkboxStatus}
         />
         <MoviesCardList
           isMoreCards={true}

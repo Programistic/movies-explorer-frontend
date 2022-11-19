@@ -1,21 +1,29 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import findIcon from '../../images/find-icon.svg';
 import './SearchForm.css';
 import '../App/App.css';
 
-function SearchForm({ onSearch, checkbox }) {
-  const [checkboxStatus, setCheckboxStatus] = useState(checkbox);
+function SearchForm({ onSearch }) {
+  const [checkboxStatus, setCheckboxStatus] = useState(false);
+  const searchText = localStorage.getItem('SearchText');
+
+  useEffect(() => {
+    if (localStorage.getItem('CheckboxStatus') === 'true') {
+      setCheckboxStatus(true);
+    } else {
+      setCheckboxStatus(false);
+    }
+  }, []);
 
   const handleSearch = (event) => {
     event.preventDefault();
-    onSearch(event.target.querySelector('input').value, checkboxStatus);
+    onSearch(event.target.querySelector('input').value, !checkboxStatus);
+    localStorage.setItem('CheckboxStatus', checkboxStatus);
   };
 
   const handleCheckboxChange = () => {
     setCheckboxStatus(!checkboxStatus);
   };
-
-  const searchText = localStorage.getItem('SearchText');
 
   return (
     <>
@@ -28,7 +36,6 @@ function SearchForm({ onSearch, checkbox }) {
             name="search"
             required
             placeholder="Фильм"
-            minLength="1"
             defaultValue={searchText}
           />
           <button className="search-form__button" type="submit">Найти</button>
@@ -38,6 +45,7 @@ function SearchForm({ onSearch, checkbox }) {
             className="search-form__checkbox"
             type="checkbox"
             name="checkbox"
+            checked={!checkboxStatus}
             onChange={handleCheckboxChange}
           />
           <label className="search-form__checkbox-label">Короткометражки</label>
