@@ -3,9 +3,8 @@ import findIcon from '../../images/find-icon.svg';
 import './SearchForm.css';
 import '../App/App.css';
 
-function SearchForm({ onSearch }) {
+function SearchForm({ onSearch, searchText }) {
   const [checkboxStatus, setCheckboxStatus] = useState(false);
-  const searchText = localStorage.getItem('SearchText');
 
   useEffect(() => {
     if (localStorage.getItem('CheckboxStatus') === 'true') {
@@ -17,7 +16,7 @@ function SearchForm({ onSearch }) {
 
   const handleSearch = (event) => {
     event.preventDefault();
-    onSearch(event.target.querySelector('input').value, !checkboxStatus);
+    onSearch(event.target.querySelector('input').value, checkboxStatus);
     localStorage.setItem('CheckboxStatus', checkboxStatus);
   };
 
@@ -45,7 +44,7 @@ function SearchForm({ onSearch }) {
             className="search-form__checkbox"
             type="checkbox"
             name="checkbox"
-            checked={!checkboxStatus}
+            checked={checkboxStatus}
             onChange={handleCheckboxChange}
           />
           <label className="search-form__checkbox-label">Короткометражки</label>

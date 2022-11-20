@@ -12,9 +12,10 @@ function MoviesCardList({
   isShowCardList,
   isShowNotFoundMessage,
   isShowPreloader,
+  isSaved,
+  onSaveMovie,
 }) {
   const windowWidth = WindowWidthMonitor();
-  const isSavedMoviesPage = path === '/saved-movies';
   const [numberCardsLoaded, setNumberCardsLoaded] = useState(3);
   const [numberCardsDisplayed, setNumberCardsDisplayed] = useState(12);
 
@@ -42,8 +43,11 @@ function MoviesCardList({
   const moviesList = movies.map((movie) => (
     <Card
       key={movie.id}
+      path={path}
+      isSaved={isSaved}
       movie={movie}
       lang={lang}
+      onSaveMovie={onSaveMovie}
     />
   ))
   .slice(0, numberCardsDisplayed);

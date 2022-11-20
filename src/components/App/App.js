@@ -15,7 +15,10 @@ import NotFound from '../NotFound/NotFound';
 import Tooltip from '../Tooltip/Tooltip';
 import * as Auth from '../../utils/Auth';
 import * as MainApi from '../../utils/MainApi';
+import moviesApi from '../../utils/MoviesApi';
 import withRouter from '../../utils/WithRouter';
+import FilterMoviesBySearchText from '../FilterMovies/FilterMoviesBySearchText';
+import FilterMoviesByDuration from '../FilterMovies/FilterMoviesByDuration';
 import './App.css';
 
 class App extends Component {
@@ -23,13 +26,25 @@ class App extends Component {
     super(props);
 
     this.state = {
+      allMovies: [],
+      moviesFiltered: [],
       loggedIn: false,
       isRegister: false,
       currentUser: {},
       isTooltipOpen: false,
+      isSaved: false,
+      isShowPreloader: false,
+      isMoviesLoaded: false,
+      isShowNotFoundMessage: false,
+      isShowCardList: false,
+      savedMovie: [],
+      searchText: '',
+      checkboxStatus: false,
+      lang: 'Ru',
     };
 
     this.tokenCheck = this.tokenCheck.bind(this);
+    this.searchMovies = this.searchMovies.bind(this);
   }
 
   handleLogin = (email, password) => {
@@ -62,6 +77,34 @@ class App extends Component {
 
   componentDidMount = () => {
     this.tokenCheck();
+    this.getMovies();
+    if (localStorage.getItem('CheckboxStatus') !== null) {
+      if (localStorage.getItem('CheckboxStatus') === 'true') {
+        this.setState({
+          checkboxStatus: true,
+        });
+      } else {
+        this.setState({
+          checkboxStatus: false,
+        });
+      }
+    }
+    if (localStorage.getItem('SearchText')) {
+      this.setState({
+        searchText: localStorage.getItem('SearchText'),
+      });
+    }
+    if (localStorage.getItem('FilteredMovies')) {
+      this.setState({
+        moviesFiltered: JSON.parse(localStorage.getItem('FilteredMovies')),
+        isShowCardList: true,
+      });
+    }
+    if (localStorage.getItem('Lang')) {
+      this.setState({
+        lang: localStorage.getItem('Lang'),
+      });
+    }
   };
 
   tokenCheck = () => {
@@ -87,6 +130,27 @@ class App extends Component {
     }
   };
 
+  getMovies = () => {
+    this.setState({
+      isShowPreloader: true,
+    });
+    moviesApi
+      .getMovies()
+      .then((allMovies) => {
+        if (allMovies.length > 0) {
+          this.setState({
+            isShowPreloader: false,
+            isMoviesLoaded: true,
+            allMovies,
+          });
+          localStorage.setItem('MoviesFromBeatfilm', JSON.stringify(allMovies));
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   editCurrentUser = (email, name) => {
     MainApi
       .editCurrentUser(email, name)
@@ -101,6 +165,73 @@ class App extends Component {
       .catch((err) => {
         console.log(err);
       });
+  };
+
+  saveMovie = (movie) => {
+    MainApi
+      .saveMovie(movie)
+      .then((savedMovie) => {
+        console.log(savedMovie);
+        if (savedMovie) {
+          this.setState({
+            savedMovie,
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  searchMovies = (searchText, checkboxStatus) => {
+    this.setState({
+      isShowNotFoundMessage: false,
+    });
+    if (checkboxStatus) {
+      const {
+        moviesFilteredBySearchText,
+        lang,
+      } = FilterMoviesBySearchText(this.state.allMovies, searchText);
+      this.setState({
+        lang,
+        checkboxStatus: true,
+      });
+      const moviesFilteredByDuration = FilterMoviesByDuration(moviesFilteredBySearchText);
+      if (moviesFilteredByDuration.length > 0) {
+        this.setState({
+          moviesFiltered: moviesFilteredByDuration,
+          isShowCardList: true,
+        });
+        localStorage.setItem('FilteredMovies', JSON.stringify(moviesFilteredByDuration));
+        localStorage.setItem('SearchText', searchText);
+        localStorage.setItem('Lang', lang);
+      } else {
+          this.setState({
+            moviesFiltered: [],
+            isShowNotFoundMessage: true,
+          });
+      }
+    } else {
+        const {
+          moviesFilteredBySearchText,
+          lang,
+        } = FilterMoviesBySearchText(this.state.allMovies, searchText);
+        if (moviesFilteredBySearchText.length > 0) {
+          this.setState({
+            lang,
+            moviesFiltered: moviesFilteredBySearchText,
+            isShowCardList: true,
+          });
+          localStorage.setItem('FilteredMovies', JSON.stringify(moviesFilteredBySearchText));
+          localStorage.setItem('SearchText', searchText);
+          localStorage.setItem('Lang', lang);
+        } else {
+            this.setState({
+              moviesFiltered: [],
+              isShowNotFoundMessage: true,
+            });
+        }
+    }
   };
 
   resetLoggedIn = () => {
@@ -133,13 +264,24 @@ class App extends Component {
               <ProtectedRoute
                 path="/movies">
                 <Header path="/movies" />
-                <Movies />
+                <Movies
+                  onSearch={this.searchMovies}
+                  checkboxStatus={this.state.checkboxStatus}
+                  searchText={this.state.searchText}
+                  moviesFiltered={this.state.moviesFiltered}
+                  lang={this.state.lang}
+                  isShowCardList={this.state.isShowCardList}
+                  isShowNotFoundMessage={this.state.isShowNotFoundMessage}
+                  isShowPreloader={this.state.isShowPreloader}
+                  isSaved={this.state.isSaved}
+                  onSaveMovie={this.saveMovie}
+                />
               </ProtectedRoute>
 
               <ProtectedRoute
                 path="/saved-movies">
                 <Header path="/saved-movies" />
-                <SavedMovies />
+                <SavedMovies savedMovie={this.state.savedMovie}/>
               </ProtectedRoute>
 
               <ProtectedRoute
@@ -147,7 +289,8 @@ class App extends Component {
                 <Header path="/profile" />
                 <Profile
                   resetLoggedIn={this.resetLoggedIn}
-                  editCurrentUser={this.editCurrentUser} />
+                  editCurrentUser={this.editCurrentUser}
+                />
               </ProtectedRoute>
 
               <Route

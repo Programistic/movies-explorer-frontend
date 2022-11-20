@@ -22,40 +22,6 @@ class SavedMovies extends Component {
     };
   }
 
-  componentDidMount() {
-    if (localStorage.getItem('CheckboxStatus')) {
-      const checkboxStatus = localStorage.getItem('CheckboxStatus');
-      this.setState({
-        checkboxStatus,
-      });
-    }
-    if (localStorage.getItem('SearchText')) {
-      const searchText = localStorage.getItem('SearchText');
-      this.setState({
-        searchText,
-      });
-    }
-    if (localStorage.getItem('FilteredMovies')) {
-      const movies = JSON.parse(localStorage.getItem('FilteredMovies'));
-      this.setState({
-        movies,
-        isShowCardList: true,
-      });
-    }
-  }
-
-  getMovies() {
-    moviesApi.getMovies()
-      .then((moviesArray) => {
-        if (moviesArray.length) {
-          localStorage.setItem('MoviesFromBeatfilm', JSON.stringify(moviesArray));
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-
   handleSearch = (searchText, checkboxStatus) => {
     this.setState({
       isShowPreloader: true,
@@ -93,7 +59,6 @@ class SavedMovies extends Component {
           searchText={this.state.searchText}
           checkboxStatus={this.state.checkboxStatus}
         />
-        {this.state.isShowPreloader && <Preloader />}
         <MoviesCardList
           isMoreCards={true}
           movies={this.state.movies}
