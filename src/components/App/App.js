@@ -41,10 +41,10 @@ class App extends Component {
       searchText: '',
       checkboxStatus: false,
       lang: 'Ru',
+      isFirstLoad: false,
     };
 
     this.tokenCheck = this.tokenCheck.bind(this);
-    this.searchMovies = this.searchMovies.bind(this);
   }
 
   handleLogin = (email, password) => {
@@ -77,7 +77,6 @@ class App extends Component {
 
   componentDidMount = () => {
     this.tokenCheck();
-    this.getMovies();
     if (localStorage.getItem('CheckboxStatus') !== null) {
       if (localStorage.getItem('CheckboxStatus') === 'true') {
         this.setState({
@@ -107,6 +106,13 @@ class App extends Component {
     }
   };
 
+  componentDidUpdate = () => {
+    if (this.state.isFirstLoad) {
+      this.searchMovies(this.state.searchText, this.state.checkboxStatus);
+      this.setState({ isFirstLoad: false });
+    }
+  };
+
   tokenCheck = () => {
     if (localStorage.getItem('jwt')) {
       const jwt = localStorage.getItem('jwt');
@@ -130,7 +136,7 @@ class App extends Component {
     }
   };
 
-  getMovies = () => {
+  getAllMovies = () => {
     this.setState({
       isShowPreloader: true,
     });
@@ -142,6 +148,7 @@ class App extends Component {
             isShowPreloader: false,
             isMoviesLoaded: true,
             allMovies,
+            isFirstLoad: true,
           });
           localStorage.setItem('MoviesFromBeatfilm', JSON.stringify(allMovies));
         }
@@ -181,6 +188,18 @@ class App extends Component {
       .catch((err) => {
         console.log(err);
       });
+  };
+
+  handleSearch = (searchText, checkboxStatus) => {
+    this.setState({
+      searchText,
+      checkboxStatus,
+    });
+    if (this.state.isMoviesLoaded === false) {
+      this.getAllMovies();
+    } else {
+      this.searchMovies(searchText, checkboxStatus);
+    }
   };
 
   searchMovies = (searchText, checkboxStatus) => {
@@ -265,7 +284,7 @@ class App extends Component {
                 path="/movies">
                 <Header path="/movies" />
                 <Movies
-                  onSearch={this.searchMovies}
+                  onSearch={this.handleSearch}
                   checkboxStatus={this.state.checkboxStatus}
                   searchText={this.state.searchText}
                   moviesFiltered={this.state.moviesFiltered}
