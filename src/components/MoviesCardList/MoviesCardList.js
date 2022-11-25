@@ -42,7 +42,7 @@ function MoviesCardList({
 
   const moviesList = movies.map((movie) => (
     <Card
-      key={movie.id}
+      key={movie.id || movie._id}
       path={path}
       isSaved={isSaved}
       movie={movie}

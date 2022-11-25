@@ -12,14 +12,18 @@ function MoviesCard({
   lang,
   onSaveMovie,
 }) {
-  const currentUser = useContext(CurrentUserContext);
-  const movieImage = `${API_URL}${movie.image.url}`;
+  // const currentUser = useContext(CurrentUserContext);
   const duration = TimeConversion(movie.duration);
   const isInSavedMovies = path === '/saved-movies';
   const movieName = lang === 'Ru' ? movie.nameRU : movie.nameEN;
+  const movieImage = !isInSavedMovies ? `${API_URL}${movie.image.url}` : movie.image;
 
   const handleSaveMovie = () => {
     onSaveMovie(movie);
+  };
+
+  const handleDeleteMovie = () => {
+    console.log('Delete movie');
   };
 
   return (
@@ -31,7 +35,7 @@ function MoviesCard({
         </div>
         {
           (isSaved ? (
-            <button className={`card__movie-selector ${isInSavedMovies ? 'card__movie-selector_type_delete' : 'card__movie-selector_type_saved'}`} type="button" aria-label="Удалить из сохранённых"></button>
+            <button className={`card__movie-selector ${isInSavedMovies ? 'card__movie-selector_type_delete' : 'card__movie-selector_type_saved'}`} type="button" aria-label="Удалить из сохранённых" onClick={handleDeleteMovie}></button>
           ) : (
             <button className="card__movie-selector card__movie-selector_type_unsaved" type="button" aria-label="Добавить в сохранённые" onClick={handleSaveMovie}></button>
           ))

@@ -37,10 +37,12 @@ class App extends Component {
       isMoviesLoaded: false,
       isShowNotFoundMessage: false,
       isShowCardList: false,
-      savedMovie: [],
+      isShowSavedMoviesCardList: true,
+      savedMovies: [],
       searchText: '',
       checkboxStatus: false,
       lang: 'Ru',
+      savedMoviesLang: 'Ru',
       isFirstLoad: false,
     };
 
@@ -77,6 +79,9 @@ class App extends Component {
 
   componentDidMount = () => {
     this.tokenCheck();
+    if (this.state.loggedIn) {
+      this.getAllSavedMovies();
+    }
     if (localStorage.getItem('CheckboxStatus') !== null) {
       if (localStorage.getItem('CheckboxStatus') === 'true') {
         this.setState({
@@ -158,6 +163,37 @@ class App extends Component {
       });
   };
 
+  getAllSavedMovies = () => {
+    this.setState({
+      isShowPreloader: true,
+    });
+    MainApi
+      .getAllSavedMovies()
+      .then((savedMovies) => {
+        if (savedMovies.length > 0) {
+          this.setState({
+            isShowPreloader: false,
+            savedMovies,
+          });
+          localStorage.setItem('SavedMovies', JSON.stringify(savedMovies));
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  deleteSavedMovie = (movieId) => {
+    MainApi
+      .deleteMovie(movieId)
+      .then((deleteMovie) => {
+        console.log(deleteMovie);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   editCurrentUser = (email, name) => {
     MainApi
       .editCurrentUser(email, name)
@@ -177,11 +213,11 @@ class App extends Component {
   saveMovie = (movie) => {
     MainApi
       .saveMovie(movie)
-      .then((savedMovie) => {
-        console.log(savedMovie);
-        if (savedMovie) {
+      .then((res) => {
+        console.log(res.movie);
+        if (res.movie) {
           this.setState({
-            savedMovie,
+            savedMovies: [res.movie, ...this.state.savedMovies],
           });
         }
       })
@@ -300,7 +336,19 @@ class App extends Component {
               <ProtectedRoute
                 path="/saved-movies">
                 <Header path="/saved-movies" />
-                <SavedMovies savedMovie={this.state.savedMovie}/>
+                <SavedMovies
+                  path="/saved-movies"
+                  // onSearch={this.handleSearch}
+                  checkboxStatus={this.state.savedMoviesCheckboxStatus}
+                  searchText={this.state.savedMoviesSearchText}
+                  savedMovies={this.state.savedMovies}
+                  moviesFiltered={this.state.savedMoviesFiltered}
+                  lang={this.state.savedMoviesLang}
+                  isShowCardList={this.state.isShowSavedMoviesCardList}
+                  isShowNotFoundMessage={this.state.isShowNotFoundSavedMoviesMessage}
+                  isSaved={true}
+                  onDeleteMovie={this.deleteSavedMovie}
+                />
               </ProtectedRoute>
 
               <ProtectedRoute
