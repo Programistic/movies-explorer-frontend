@@ -14,6 +14,7 @@ function MoviesCardList({
   isShowPreloader,
   isSaved,
   onSaveMovie,
+  onDeleteMovie,
 }) {
   const windowWidth = WindowWidthMonitor();
   const [numberCardsLoaded, setNumberCardsLoaded] = useState(3);
@@ -48,6 +49,7 @@ function MoviesCardList({
       movie={movie}
       lang={lang}
       onSaveMovie={onSaveMovie}
+      onDeleteMovie={onDeleteMovie}
     />
   ))
   .slice(0, numberCardsDisplayed);

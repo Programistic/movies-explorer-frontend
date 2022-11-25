@@ -79,9 +79,7 @@ class App extends Component {
 
   componentDidMount = () => {
     this.tokenCheck();
-    if (this.state.loggedIn) {
-      this.getAllSavedMovies();
-    }
+    this.getAllSavedMovies();
     if (localStorage.getItem('CheckboxStatus') !== null) {
       if (localStorage.getItem('CheckboxStatus') === 'true') {
         this.setState({
@@ -164,15 +162,11 @@ class App extends Component {
   };
 
   getAllSavedMovies = () => {
-    this.setState({
-      isShowPreloader: true,
-    });
     MainApi
       .getAllSavedMovies()
       .then((savedMovies) => {
         if (savedMovies.length > 0) {
           this.setState({
-            isShowPreloader: false,
             savedMovies,
           });
           localStorage.setItem('SavedMovies', JSON.stringify(savedMovies));
@@ -183,11 +177,13 @@ class App extends Component {
       });
   };
 
-  deleteSavedMovie = (movieId) => {
+  deleteSavedMovie = (movie) => {
     MainApi
-      .deleteMovie(movieId)
-      .then((deleteMovie) => {
-        console.log(deleteMovie);
+      .deleteMovie(movie._id)
+      .then(() => {
+        this.setState({
+          savedMovies: this.state.savedMovies.filter((item) => item._id !== movie._id),
+        });
       })
       .catch((err) => {
         console.log(err);

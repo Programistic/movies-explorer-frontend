@@ -11,6 +11,7 @@ function MoviesCard({
   movie,
   lang,
   onSaveMovie,
+  onDeleteMovie,
 }) {
   // const currentUser = useContext(CurrentUserContext);
   const duration = TimeConversion(movie.duration);
@@ -23,7 +24,7 @@ function MoviesCard({
   };
 
   const handleDeleteMovie = () => {
-    console.log('Delete movie');
+    onDeleteMovie(movie);
   };
 
   return (
