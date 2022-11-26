@@ -39,14 +39,14 @@ class App extends Component {
       isShowCardList: false,
       isShowSavedMoviesCardList: true,
       savedMovies: [],
+      savedMoviesFiltered: [],
       searchText: '',
       checkboxStatus: false,
       lang: 'Ru',
-      savedMoviesLang: 'Ru',
       isFirstLoad: false,
     };
 
-    this.tokenCheck = this.tokenCheck.bind(this);
+    this.getCurrentUser = this.getCurrentUser.bind(this);
   }
 
   handleLogin = (email, password) => {
@@ -55,10 +55,7 @@ class App extends Component {
       .then((data) => {
         if (data !== undefined && data.token) {
           localStorage.setItem('jwt', data.token);
-          this.setState({
-            loggedIn: true,
-          });
-          this.props.history.push('./movies');
+          this.getCurrentUser();
         }
       })
       .catch((err) => {
@@ -66,11 +63,13 @@ class App extends Component {
       });
   };
 
-  handleRegister = (userName, userEmail, userPassword) => {
+  handleRegister = (name, email, password) => {
     Auth
-      .register(userName, userEmail, userPassword)
-      .then(() => {
-        this.props.history.push('./movies');
+      .register(name, email, password)
+      .then((data) => {
+        if (data !== undefined) {
+          this.handleLogin(data.email, password);
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -78,8 +77,7 @@ class App extends Component {
   };
 
   componentDidMount = () => {
-    this.tokenCheck();
-    this.getAllSavedMovies();
+    this.getCurrentUser();
     if (localStorage.getItem('CheckboxStatus') !== null) {
       if (localStorage.getItem('CheckboxStatus') === 'true') {
         this.setState({
@@ -116,7 +114,7 @@ class App extends Component {
     }
   };
 
-  tokenCheck = () => {
+  getCurrentUser = () => {
     if (localStorage.getItem('jwt')) {
       const jwt = localStorage.getItem('jwt');
       if (jwt) {
@@ -127,9 +125,14 @@ class App extends Component {
               this.setState({
                 loggedIn: true,
                 currentUser: res.user,
-              }, () => {
-                this.props.history.push('/');
               });
+              this.getAllSavedMovies();
+              this.props.history.push('/movies');
+            } else {
+                this.setState({
+                  loggedIn: false,
+                });
+                this.props.history.push('/signin');
             }
           })
           .catch((err) => {
@@ -177,12 +180,15 @@ class App extends Component {
       });
   };
 
-  deleteSavedMovie = (movie) => {
+  deleteSavedMovie = (movie, isInSavedMovies) => {
+    const deleteMovie = isInSavedMovies ? movie : this.state.savedMovies.find(
+      (savedMovie) => savedMovie.movieId === movie.id,
+    );
     MainApi
-      .deleteMovie(movie._id)
+      .deleteMovie(deleteMovie._id)
       .then(() => {
         this.setState({
-          savedMovies: this.state.savedMovies.filter((item) => item._id !== movie._id),
+          savedMovies: this.state.savedMovies.filter((item) => item._id !== deleteMovie._id),
         });
       })
       .catch((err) => {
@@ -210,11 +216,11 @@ class App extends Component {
     MainApi
       .saveMovie(movie)
       .then((res) => {
-        console.log(res.movie);
         if (res.movie) {
           this.setState({
             savedMovies: [res.movie, ...this.state.savedMovies],
           });
+          localStorage.setItem('SavedMovies', JSON.stringify(this.state.savedMovies));
         }
       })
       .catch((err) => {
@@ -285,6 +291,45 @@ class App extends Component {
     }
   };
 
+  searchSavedMovies = (searchText, checkboxStatus) => {
+    const savedMovies = JSON.parse(localStorage.getItem('SavedMovies'));
+    this.setState({
+      isShowNotFoundSavedMoviesMessage: false,
+    });
+    if (checkboxStatus) {
+      const {
+        moviesFilteredBySearchText,
+      } = FilterMoviesBySearchText(savedMovies, searchText);
+      const moviesFilteredByDuration = FilterMoviesByDuration(moviesFilteredBySearchText);
+      if (moviesFilteredByDuration.length > 0) {
+        this.setState({
+          savedMovies: moviesFilteredByDuration,
+          isShowSavedMoviesCardList: true,
+        });
+      } else {
+          this.setState({
+            savedMovies: [],
+            isShowNotFoundSavedMoviesMessage: true,
+          });
+      }
+    } else {
+        const {
+          moviesFilteredBySearchText,
+        } = FilterMoviesBySearchText(savedMovies, searchText);
+        if (moviesFilteredBySearchText.length > 0) {
+          this.setState({
+            savedMovies: moviesFilteredBySearchText,
+            isShowSavedMoviesCardList: true,
+          });
+        } else {
+            this.setState({
+              savedMovies: [],
+              isShowNotFoundSavedMoviesMessage: true,
+            });
+        }
+    }
+  };
+
   resetLoggedIn = () => {
     this.setState({
       loggedIn: false,
@@ -320,12 +365,14 @@ class App extends Component {
                   checkboxStatus={this.state.checkboxStatus}
                   searchText={this.state.searchText}
                   moviesFiltered={this.state.moviesFiltered}
+                  savedMovies={this.state.savedMovies}
                   lang={this.state.lang}
                   isShowCardList={this.state.isShowCardList}
                   isShowNotFoundMessage={this.state.isShowNotFoundMessage}
                   isShowPreloader={this.state.isShowPreloader}
                   isSaved={this.state.isSaved}
                   onSaveMovie={this.saveMovie}
+                  onDeleteMovie={this.deleteSavedMovie}
                 />
               </ProtectedRoute>
 
@@ -334,12 +381,10 @@ class App extends Component {
                 <Header path="/saved-movies" />
                 <SavedMovies
                   path="/saved-movies"
-                  // onSearch={this.handleSearch}
-                  checkboxStatus={this.state.savedMoviesCheckboxStatus}
-                  searchText={this.state.savedMoviesSearchText}
+                  onSearch={this.searchSavedMovies}
+                  searchText={'Фильм'}
                   savedMovies={this.state.savedMovies}
-                  moviesFiltered={this.state.savedMoviesFiltered}
-                  lang={this.state.savedMoviesLang}
+                  lang={'Ru' || 'En'}
                   isShowCardList={this.state.isShowSavedMoviesCardList}
                   isShowNotFoundMessage={this.state.isShowNotFoundSavedMoviesMessage}
                   isSaved={true}

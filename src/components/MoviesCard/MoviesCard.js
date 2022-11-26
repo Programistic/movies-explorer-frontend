@@ -1,7 +1,5 @@
-import { useContext } from 'react';
 import { API_URL } from '../../utils/constants';
 import TimeConversion from '../TimeConversion/TimeConversion';
-import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import '../App/App.css';
 import './MoviesCard.css';
 
@@ -13,7 +11,6 @@ function MoviesCard({
   onSaveMovie,
   onDeleteMovie,
 }) {
-  // const currentUser = useContext(CurrentUserContext);
   const duration = TimeConversion(movie.duration);
   const isInSavedMovies = path === '/saved-movies';
   const movieName = lang === 'Ru' ? movie.nameRU : movie.nameEN;
@@ -24,7 +21,7 @@ function MoviesCard({
   };
 
   const handleDeleteMovie = () => {
-    onDeleteMovie(movie);
+    onDeleteMovie(movie, isInSavedMovies);
   };
 
   return (

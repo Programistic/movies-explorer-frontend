@@ -5,13 +5,11 @@ import './SavedMovies.css';
 function SavedMovies({
   path,
   onSearch,
-  checkboxStatus,
   searchText,
   savedMovies,
   lang,
   isShowCardList,
   isShowNotFoundMessage,
-  isShowPreloader,
   isSaved,
   onDeleteMovie,
 }) {
@@ -19,7 +17,6 @@ function SavedMovies({
     <>
       <SearchForm
         onSearch={onSearch}
-        checkboxStatus={checkboxStatus}
         searchText={searchText}
       />
       <MoviesCardList
@@ -28,7 +25,6 @@ function SavedMovies({
         lang={lang}
         isShowCardList={isShowCardList}
         isShowNotFoundMessage={isShowNotFoundMessage}
-        isShowPreloader={isShowPreloader}
         isSaved={isSaved}
         onDeleteMovie={onDeleteMovie}
       />

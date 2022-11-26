@@ -5,32 +5,34 @@ import './Movies.css';
 function Movies({
   path,
   onSearch,
-  checkboxStatus,
   searchText,
   moviesFiltered,
+  savedMovies,
   lang,
   isShowCardList,
   isShowNotFoundMessage,
   isShowPreloader,
   isSaved,
   onSaveMovie,
+  onDeleteMovie,
 }) {
   return (
     <>
       <SearchForm
         onSearch={onSearch}
-        checkboxStatus={checkboxStatus}
         searchText={searchText}
       />
       <MoviesCardList
         path={path}
         movies={moviesFiltered}
+        savedMovies={savedMovies}
         lang={lang}
         isShowCardList={isShowCardList}
         isShowNotFoundMessage={isShowNotFoundMessage}
         isShowPreloader={isShowPreloader}
         isSaved={isSaved}
         onSaveMovie={onSaveMovie}
+        onDeleteMovie={onDeleteMovie}
       />
     </>
   );

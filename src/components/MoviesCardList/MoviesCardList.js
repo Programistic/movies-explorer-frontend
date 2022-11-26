@@ -8,11 +8,11 @@ import './MoviesCardList.css';
 function MoviesCardList({
   path,
   movies,
+  savedMovies,
   lang,
   isShowCardList,
   isShowNotFoundMessage,
   isShowPreloader,
-  isSaved,
   onSaveMovie,
   onDeleteMovie,
 }) {
@@ -35,24 +35,41 @@ function MoviesCardList({
     }
   }, [windowWidth]);
 
-  const isMoreCards = (numberCardsDisplayed < movies.length)
+  let isMoreCards = (numberCardsDisplayed < movies.length)
   && (numberCardsDisplayed >= 3) && (isShowCardList);
+
+  let moviesList;
+
+  if (path === '/saved-movies') {
+    isMoreCards = false;
+    moviesList = movies.map((movie) => (
+      <Card
+        key={movie.id || movie._id}
+        path={path}
+        isSaved={true}
+        movie={movie}
+        lang={lang}
+        onDeleteMovie={onDeleteMovie}
+      />
+    ));
+  } else {
+    moviesList = movies.map((movie) => (
+      <Card
+        key={movie.id || movie._id}
+        path={path}
+        movie={movie}
+        lang={lang}
+        isSaved={savedMovies.some((savedMovie) => savedMovie.movieId === movie.id)}
+        onSaveMovie={onSaveMovie}
+        onDeleteMovie={onDeleteMovie}
+      />
+    ))
+    .slice(0, numberCardsDisplayed);
+  }
+
   const handleButtonMore = () => {
     setNumberCardsDisplayed(numberCardsDisplayed + numberCardsLoaded);
   };
-
-  const moviesList = movies.map((movie) => (
-    <Card
-      key={movie.id || movie._id}
-      path={path}
-      isSaved={isSaved}
-      movie={movie}
-      lang={lang}
-      onSaveMovie={onSaveMovie}
-      onDeleteMovie={onDeleteMovie}
-    />
-  ))
-  .slice(0, numberCardsDisplayed);
 
   return (
     <section className="cards-container">
