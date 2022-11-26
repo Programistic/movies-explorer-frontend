@@ -347,81 +347,85 @@ class App extends Component {
       <div className="page">
         <div className="container">
           <CurrentUserContext.Provider value={this.state.currentUser}>
-          <LoggedInContext.Provider value={this.state.loggedIn}>
 
-            <Switch>
+            <LoggedInContext.Provider value={this.state.loggedIn}>
 
-              <Route
-                exact path="/">
-                <Header path="/" />
-                <Main />
-              </Route>
+              <Switch>
 
-              <ProtectedRoute
-                path="/movies">
-                <Header path="/movies" />
-                <Movies
-                  onSearch={this.handleSearch}
-                  checkboxStatus={this.state.checkboxStatus}
-                  searchText={this.state.searchText}
-                  moviesFiltered={this.state.moviesFiltered}
-                  savedMovies={this.state.savedMovies}
-                  lang={this.state.lang}
-                  isShowCardList={this.state.isShowCardList}
-                  isShowNotFoundMessage={this.state.isShowNotFoundMessage}
-                  isShowPreloader={this.state.isShowPreloader}
-                  isSaved={this.state.isSaved}
-                  onSaveMovie={this.saveMovie}
-                  onDeleteMovie={this.deleteSavedMovie}
-                />
-              </ProtectedRoute>
+                <Route
+                  exact path="/">
+                  <Header path="/" />
+                  <Main />
+                  <Footer />
+                </Route>
 
-              <ProtectedRoute
-                path="/saved-movies">
-                <Header path="/saved-movies" />
-                <SavedMovies
-                  path="/saved-movies"
-                  onSearch={this.searchSavedMovies}
-                  searchText={'Фильм'}
-                  savedMovies={this.state.savedMovies}
-                  lang={'Ru' || 'En'}
-                  isShowCardList={this.state.isShowSavedMoviesCardList}
-                  isShowNotFoundMessage={this.state.isShowNotFoundSavedMoviesMessage}
-                  isSaved={true}
-                  onDeleteMovie={this.deleteSavedMovie}
-                />
-              </ProtectedRoute>
+                <ProtectedRoute
+                  path="/movies">
+                  <Header path="/movies" />
+                  <Movies
+                    onSearch={this.handleSearch}
+                    checkboxStatus={this.state.checkboxStatus}
+                    searchText={this.state.searchText}
+                    moviesFiltered={this.state.moviesFiltered}
+                    savedMovies={this.state.savedMovies}
+                    lang={this.state.lang}
+                    isShowCardList={this.state.isShowCardList}
+                    isShowNotFoundMessage={this.state.isShowNotFoundMessage}
+                    isShowPreloader={this.state.isShowPreloader}
+                    isSaved={this.state.isSaved}
+                    onSaveMovie={this.saveMovie}
+                    onDeleteMovie={this.deleteSavedMovie}
+                  />
+                  <Footer />
+                </ProtectedRoute>
 
-              <ProtectedRoute
-                path="/profile">
-                <Header path="/profile" />
-                <Profile
-                  resetLoggedIn={this.resetLoggedIn}
-                  editCurrentUser={this.editCurrentUser}
-                />
-              </ProtectedRoute>
+                <ProtectedRoute
+                  path="/saved-movies">
+                  <Header path="/saved-movies" />
+                  <SavedMovies
+                    path="/saved-movies"
+                    onSearch={this.searchSavedMovies}
+                    searchText={'Фильм'}
+                    savedMovies={this.state.savedMovies}
+                    lang={'Ru' || 'En'}
+                    isShowCardList={this.state.isShowSavedMoviesCardList}
+                    isShowNotFoundMessage={this.state.isShowNotFoundSavedMoviesMessage}
+                    isSaved={true}
+                    onDeleteMovie={this.deleteSavedMovie}
+                  />
+                  <Footer />
+                </ProtectedRoute>
 
-              <Route
-                path="/signin">
-                <Login onLogin={this.handleLogin} />
-              </Route>
+                <ProtectedRoute
+                  path="/profile">
+                  <Header path="/profile" />
+                  <Profile
+                    resetLoggedIn={this.resetLoggedIn}
+                    editCurrentUser={this.editCurrentUser}
+                  />
+                </ProtectedRoute>
 
-              <Route
-                path="/signup">
-                <Register onRegister={this.handleRegister} />
-              </Route>
+                <Route
+                  path="/signin">
+                  <Login onLogin={this.handleLogin} />
+                </Route>
 
-              <Route
-                path="/notfound">
-                <NotFound />
-              </Route>
+                <Route
+                  path="/signup">
+                  <Register onRegister={this.handleRegister} />
+                </Route>
 
-            </Switch>
+                <Route
+                  path="*">
+                  <NotFound />
+                </Route>
 
-            <Tooltip onConfirm={this.closeTooltip} isOpen={this.state.isTooltipOpen} />
+              </Switch>
 
-            <Footer />
-          </LoggedInContext.Provider>
+              <Tooltip onConfirm={this.closeTooltip} isOpen={this.state.isTooltipOpen} />
+
+            </LoggedInContext.Provider>
+
           </CurrentUserContext.Provider>
         </div>
       </div>
