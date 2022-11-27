@@ -26,24 +26,24 @@ class App extends Component {
     super(props);
 
     this.state = {
-      allMovies: [],
-      moviesFiltered: [],
       loggedIn: false,
-      isRegister: false,
       currentUser: {},
       isTooltipOpen: false,
       isSaved: false,
       isShowPreloader: false,
       isMoviesLoaded: false,
+      isFirstLoad: false,
       isShowNotFoundMessage: false,
-      isShowCardList: false,
-      isShowSavedMoviesCardList: true,
-      savedMovies: [],
-      savedMoviesFiltered: [],
+      allMovies: [],
       searchText: '',
       checkboxStatus: false,
       lang: 'Ru',
-      isFirstLoad: false,
+      moviesFiltered: [],
+      isShowCardList: false,
+      savedMovies: [],
+      savedMoviesLang: 'Ru',
+      savedMoviesFiltered: [],
+      isShowSavedMoviesCardList: true,
     };
 
     this.getCurrentUser = this.getCurrentUser.bind(this);
@@ -299,7 +299,11 @@ class App extends Component {
     if (checkboxStatus) {
       const {
         moviesFilteredBySearchText,
+        lang,
       } = FilterMoviesBySearchText(savedMovies, searchText);
+      this.setState({
+        savedMoviesLang: lang,
+      });
       const moviesFilteredByDuration = FilterMoviesByDuration(moviesFilteredBySearchText);
       if (moviesFilteredByDuration.length > 0) {
         this.setState({
@@ -315,9 +319,11 @@ class App extends Component {
     } else {
         const {
           moviesFilteredBySearchText,
+          lang,
         } = FilterMoviesBySearchText(savedMovies, searchText);
         if (moviesFilteredBySearchText.length > 0) {
           this.setState({
+            savedMoviesLang: lang,
             savedMovies: moviesFilteredBySearchText,
             isShowSavedMoviesCardList: true,
           });
@@ -387,7 +393,7 @@ class App extends Component {
                     onSearch={this.searchSavedMovies}
                     searchText={'Фильм'}
                     savedMovies={this.state.savedMovies}
-                    lang={'Ru' || 'En'}
+                    lang={this.state.savedMoviesLang}
                     isShowCardList={this.state.isShowSavedMoviesCardList}
                     isShowNotFoundMessage={this.state.isShowNotFoundSavedMoviesMessage}
                     isSaved={true}

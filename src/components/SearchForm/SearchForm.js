@@ -14,10 +14,17 @@ function SearchForm({ onSearch, searchText }) {
     }
   }, []);
 
+  const [textWarning, setTextWarning] = useState('');
+
   const handleSearch = (event) => {
     event.preventDefault();
-    onSearch(event.target.querySelector('input').value, checkboxStatus);
-    localStorage.setItem('CheckboxStatus', checkboxStatus);
+    if (event.target.querySelector('input').value === '') {
+      setTextWarning('Нужно ввести ключевое слово');
+    } else {
+      setTextWarning('');
+      onSearch(event.target.querySelector('input').value, checkboxStatus);
+      localStorage.setItem('CheckboxStatus', checkboxStatus);
+    }
   };
 
   const handleCheckboxChange = () => {
@@ -29,14 +36,17 @@ function SearchForm({ onSearch, searchText }) {
       <form className="search-form" onSubmit={handleSearch} noValidate>
         <div className="search-form__search-container">
           <img className="search-form__find-icon" src={findIcon} alt="Найти" />
-          <input
-            className="search-form__input"
-            type="text"
-            name="search"
-            required
-            placeholder="Фильм"
-            defaultValue={searchText}
-          />
+          <div className="search-form__input-container">
+            <input
+              className="search-form__input"
+              type="text"
+              name="search"
+              required
+              placeholder="Фильм"
+              defaultValue={searchText}
+            />
+            <span className="text-warning">{textWarning}</span>
+          </div>
           <button className="search-form__button" type="submit">Найти</button>
         </div>
         <div className="search-form__select-container">
