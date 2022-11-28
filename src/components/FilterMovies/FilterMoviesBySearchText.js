@@ -1,6 +1,8 @@
+import { CYRILLIC_PATTERN } from '../../utils/constants';
+
 const FilterMoviesBySearchText = (movies, searchText) => {
   const reworkedSearchText = searchText.toLowerCase().trim();
-  const cyrillicPattern = /^[\u0400-\u04FF]+$/;
+  const cyrillicPattern = CYRILLIC_PATTERN;
   let filteredMovies;
   let lang;
   if (cyrillicPattern.test(reworkedSearchText)) {

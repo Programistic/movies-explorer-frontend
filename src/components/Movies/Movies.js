@@ -5,12 +5,14 @@ import './Movies.css';
 function Movies({
   path,
   onSearch,
+  onSearchByDuration,
   searchText,
   moviesFiltered,
   savedMovies,
   lang,
   isShowCardList,
   isShowNotFoundMessage,
+  isShowRequestErrorMessage,
   isShowPreloader,
   isSaved,
   onSaveMovie,
@@ -21,6 +23,7 @@ function Movies({
       <SearchForm
         onSearch={onSearch}
         searchText={searchText}
+        onSearchByDuration={onSearchByDuration}
       />
       <MoviesCardList
         path={path}
@@ -29,6 +32,7 @@ function Movies({
         lang={lang}
         isShowCardList={isShowCardList}
         isShowNotFoundMessage={isShowNotFoundMessage}
+        isShowRequestErrorMessage={isShowRequestErrorMessage}
         isShowPreloader={isShowPreloader}
         isSaved={isSaved}
         onSaveMovie={onSaveMovie}

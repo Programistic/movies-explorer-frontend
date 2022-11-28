@@ -5,11 +5,13 @@ import './SavedMovies.css';
 function SavedMovies({
   path,
   onSearch,
+  onSearchByDuration,
   searchText,
   savedMovies,
   lang,
   isShowCardList,
   isShowNotFoundMessage,
+  isShowRequestErrorMessage,
   isSaved,
   onDeleteMovie,
 }) {
@@ -18,6 +20,7 @@ function SavedMovies({
       <SearchForm
         onSearch={onSearch}
         searchText={searchText}
+        onSearchByDuration={onSearchByDuration}
       />
       <MoviesCardList
         path={path}
@@ -25,6 +28,7 @@ function SavedMovies({
         lang={lang}
         isShowCardList={isShowCardList}
         isShowNotFoundMessage={isShowNotFoundMessage}
+        isShowRequestErrorMessage={isShowRequestErrorMessage}
         isSaved={isSaved}
         onDeleteMovie={onDeleteMovie}
       />

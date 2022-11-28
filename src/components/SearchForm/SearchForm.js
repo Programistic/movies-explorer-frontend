@@ -3,7 +3,7 @@ import findIcon from '../../images/find-icon.svg';
 import './SearchForm.css';
 import '../App/App.css';
 
-function SearchForm({ onSearch, searchText }) {
+function SearchForm({ onSearch, searchText, onSearchByDuration }) {
   const [checkboxStatus, setCheckboxStatus] = useState(false);
 
   useEffect(() => {
@@ -29,6 +29,7 @@ function SearchForm({ onSearch, searchText }) {
 
   const handleCheckboxChange = () => {
     setCheckboxStatus(!checkboxStatus);
+    onSearchByDuration(!checkboxStatus);
   };
 
   return (

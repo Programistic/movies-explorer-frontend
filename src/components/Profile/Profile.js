@@ -104,6 +104,7 @@ class Profile extends Component {
     localStorage.removeItem('SearchText');
     localStorage.removeItem('CheckboxStatus');
     localStorage.removeItem('Lang');
+    localStorage.removeItem('SavedMovies');
     this.resetLoggedIn();
     this.props.history.push('/');
   };

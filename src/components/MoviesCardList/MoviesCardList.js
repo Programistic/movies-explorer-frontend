@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Card from '../MoviesCard/MoviesCard';
 import WindowWidthMonitor from '../WindowWidthMonitor/WindowWidthMonitor';
 import Preloader from '../Preloader/Preloader';
-import { NOT_FOUND_MESSAGE } from '../../utils/constants';
+import { NOT_FOUND_MESSAGE, REQUEST_ERROR_MESSAGE } from '../../utils/constants';
 import './MoviesCardList.css';
 
 function MoviesCardList({
@@ -12,6 +12,7 @@ function MoviesCardList({
   lang,
   isShowCardList,
   isShowNotFoundMessage,
+  isShowRequestErrorMessage,
   isShowPreloader,
   onSaveMovie,
   onDeleteMovie,
@@ -74,6 +75,7 @@ function MoviesCardList({
   return (
     <section className="cards-container">
       { isShowNotFoundMessage && <p className="message">{NOT_FOUND_MESSAGE}</p> }
+      { isShowRequestErrorMessage && <p className="message">{REQUEST_ERROR_MESSAGE}</p> }
       { isShowPreloader && <Preloader /> }
       <ul className="cards">
         {isShowCardList && moviesList}

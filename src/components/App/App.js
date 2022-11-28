@@ -34,8 +34,10 @@ class App extends Component {
       isMoviesLoaded: false,
       isFirstLoad: false,
       isShowNotFoundMessage: false,
+      isShowRequestErrorMessage: false,
       allMovies: [],
       searchText: '',
+      savedMoviesSearchText: '',
       checkboxStatus: false,
       lang: 'Ru',
       moviesFiltered: [],
@@ -44,37 +46,13 @@ class App extends Component {
       savedMoviesLang: 'Ru',
       savedMoviesFiltered: [],
       isShowSavedMoviesCardList: true,
+      isShowSavedMoviesRequestErrorMessage: false,
+      isShowErrorMessage: false,
+      registerErrorMessage: '',
     };
 
     this.getCurrentUser = this.getCurrentUser.bind(this);
   }
-
-  handleLogin = (email, password) => {
-    Auth
-      .authorize(email, password)
-      .then((data) => {
-        if (data !== undefined && data.token) {
-          localStorage.setItem('jwt', data.token);
-          this.getCurrentUser();
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  handleRegister = (name, email, password) => {
-    Auth
-      .register(name, email, password)
-      .then((data) => {
-        if (data !== undefined) {
-          this.handleLogin(data.email, password);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
 
   componentDidMount = () => {
     this.getCurrentUser();
@@ -142,9 +120,26 @@ class App extends Component {
     }
   };
 
+  editCurrentUser = (email, name) => {
+    MainApi
+      .editCurrentUser(email, name)
+      .then((res) => {
+        if (res) {
+          this.setState({
+            currentUser: res.user,
+            isTooltipOpen: true,
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   getAllMovies = () => {
     this.setState({
       isShowPreloader: true,
+      isShowRequestErrorMessage: false,
     });
     moviesApi
       .getMovies()
@@ -160,6 +155,10 @@ class App extends Component {
         }
       })
       .catch((err) => {
+        this.setState({
+          isShowPreloader: false,
+          isShowRequestErrorMessage: true,
+        });
         console.log(err);
       });
   };
@@ -180,38 +179,6 @@ class App extends Component {
       });
   };
 
-  deleteSavedMovie = (movie, isInSavedMovies) => {
-    const deleteMovie = isInSavedMovies ? movie : this.state.savedMovies.find(
-      (savedMovie) => savedMovie.movieId === movie.id,
-    );
-    MainApi
-      .deleteMovie(deleteMovie._id)
-      .then(() => {
-        this.setState({
-          savedMovies: this.state.savedMovies.filter((item) => item._id !== deleteMovie._id),
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  editCurrentUser = (email, name) => {
-    MainApi
-      .editCurrentUser(email, name)
-      .then((res) => {
-        if (res) {
-          this.setState({
-            currentUser: res.user,
-            isTooltipOpen: true,
-          });
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
   saveMovie = (movie) => {
     MainApi
       .saveMovie(movie)
@@ -222,6 +189,23 @@ class App extends Component {
           });
           localStorage.setItem('SavedMovies', JSON.stringify(this.state.savedMovies));
         }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  deleteSavedMovie = (movie, isInSavedMovies) => {
+    const deleteMovie = isInSavedMovies ? movie : this.state.savedMovies.find(
+      (savedMovie) => savedMovie.movieId === movie.id,
+    );
+    MainApi
+      .deleteMovie(deleteMovie._id)
+      .then(() => {
+        this.setState({
+          savedMovies: this.state.savedMovies.filter((item) => item._id !== deleteMovie._id),
+        });
+        localStorage.setItem('SavedMovies', JSON.stringify(this.state.savedMovies));
       })
       .catch((err) => {
         console.log(err);
@@ -295,6 +279,7 @@ class App extends Component {
     const savedMovies = JSON.parse(localStorage.getItem('SavedMovies'));
     this.setState({
       isShowNotFoundSavedMoviesMessage: false,
+      savedMoviesSearchText: searchText,
     });
     if (checkboxStatus) {
       const {
@@ -336,6 +321,43 @@ class App extends Component {
     }
   };
 
+  handleSearchByDuration = (checkboxStatus) => {
+    const searchText = localStorage.getItem('SearchText');
+    this.handleSearch(searchText, checkboxStatus);
+  };
+
+  handleSearchSavedMoviesByDuration = (checkboxStatus) => {
+    const searchText = this.state.savedMoviesSearchText;
+    this.searchSavedMovies(searchText, checkboxStatus);
+  };
+
+  handleLogin = (email, password) => {
+    Auth
+      .authorize(email, password)
+      .then((data) => {
+        if (data !== undefined && data.token) {
+          localStorage.setItem('jwt', data.token);
+          this.getCurrentUser();
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  handleRegister = (name, email, password) => {
+    Auth
+      .register(name, email, password)
+      .then((data) => {
+        if (data !== undefined) {
+          this.handleLogin(data.email, password);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   resetLoggedIn = () => {
     this.setState({
       loggedIn: false,
@@ -370,6 +392,7 @@ class App extends Component {
                   <Header path="/movies" />
                   <Movies
                     onSearch={this.handleSearch}
+                    onSearchByDuration={this.handleSearchByDuration}
                     checkboxStatus={this.state.checkboxStatus}
                     searchText={this.state.searchText}
                     moviesFiltered={this.state.moviesFiltered}
@@ -377,6 +400,7 @@ class App extends Component {
                     lang={this.state.lang}
                     isShowCardList={this.state.isShowCardList}
                     isShowNotFoundMessage={this.state.isShowNotFoundMessage}
+                    isShowRequestErrorMessage={this.state.isShowRequestErrorMessage}
                     isShowPreloader={this.state.isShowPreloader}
                     isSaved={this.state.isSaved}
                     onSaveMovie={this.saveMovie}
@@ -391,11 +415,13 @@ class App extends Component {
                   <SavedMovies
                     path="/saved-movies"
                     onSearch={this.searchSavedMovies}
-                    searchText={'Фильм'}
+                    onSearchByDuration={this.handleSearchSavedMoviesByDuration}
+                    searchText={''}
                     savedMovies={this.state.savedMovies}
                     lang={this.state.savedMoviesLang}
                     isShowCardList={this.state.isShowSavedMoviesCardList}
                     isShowNotFoundMessage={this.state.isShowNotFoundSavedMoviesMessage}
+                    isShowRequestErrorMessage={this.state.isShowSavedMoviesRequestErrorMessage}
                     isSaved={true}
                     onDeleteMovie={this.deleteSavedMovie}
                   />
@@ -418,7 +444,10 @@ class App extends Component {
 
                 <Route
                   path="/signup">
-                  <Register onRegister={this.handleRegister} />
+                  <Register
+                    onRegister={this.handleRegister}
+                    isShowErrorMessage={this.state.isShowErrorMessage}
+                  />
                 </Route>
 
                 <Route

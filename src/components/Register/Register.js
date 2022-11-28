@@ -7,12 +7,17 @@ import {
   NAME_ERROR_MESSAGE,
   EMAIL_ERROR_MESSAGE,
   PASSWORD_ERROR_MESSAGE,
+  REGISTRATION_ERROR_MESSAGE,
 } from '../../utils/constants';
 import '../App/App.css';
 import './Register.css';
 
 class Register extends Component {
-  constructor({ props, onRegister }) {
+  constructor({
+    props,
+    onRegister,
+    isShowErrorMessage,
+  }) {
     super(props);
 
     this.onRegister = onRegister;
@@ -26,6 +31,7 @@ class Register extends Component {
       passwordValid: false,
       formValid: false,
       formErrors: { name: '', email: '', password: '' },
+      isShowErrorMessage,
     };
   }
 
@@ -136,6 +142,7 @@ class Register extends Component {
           <div className="register__line line_color_grey"></div>
           <span className="text-warning">{this.state.formErrors.password}</span>
         </div>
+        <span className="register__text-error">{this.state.isShowErrorMessage ? REGISTRATION_ERROR_MESSAGE : ''}</span>
         <button type="submit" className={` register__button_role_signup ${!this.state.formValid ? 'button_inactive' : 'button_active'} register__button`} disabled={!this.state.formValid}>Зарегистрироваться</button>
         <div className="register__link-container">
           <p className="register__link-label">Уже зарегистрированы?</p>

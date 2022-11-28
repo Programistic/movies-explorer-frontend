@@ -38,10 +38,10 @@
 }
 
 .message {
-  margin: 30px 0;
-  padding: 0;
-  font: 400 16px/18px 'Inter', 'Arial', sans-serif;
-  color: #000;
+  margin: 0 0 70px;
+  padding: 0 20px;
+  font: 500 14px/16px 'Inter', 'Arial', sans-serif;
+  color: #ff3055;
   text-align: center;
 }
 
@@ -83,5 +83,10 @@
   .cards__button-more {
     margin: 80px 0 80px;
     width: 240px;
+  }
+
+  .message {
+    margin: 0 0 50px;
+    font: 400 13px/18px 'Inter', 'Arial', sans-serif;
   }
 }
