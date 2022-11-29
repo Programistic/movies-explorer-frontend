@@ -37,13 +37,13 @@ class App extends Component {
       isShowRequestErrorMessage: false,
       allMovies: [],
       searchText: '',
-      savedMoviesSearchText: '',
       checkboxStatus: false,
       lang: 'Ru',
       moviesFiltered: [],
       isShowCardList: false,
       savedMovies: [],
       savedMoviesLang: 'Ru',
+      savedMoviesSearchText: '',
       savedMoviesFiltered: [],
       isShowSavedMoviesCardList: true,
       isShowSavedMoviesRequestErrorMessage: false,
@@ -90,6 +90,10 @@ class App extends Component {
       this.searchMovies(this.state.searchText, this.state.checkboxStatus);
       this.setState({ isFirstLoad: false });
     }
+  };
+
+  componentWillUnmount = () => {
+    localStorage.setItem('SavedMovies', JSON.stringify(this.state.savedMovies));
   };
 
   getCurrentUser = () => {
@@ -170,6 +174,7 @@ class App extends Component {
         if (savedMovies.length > 0) {
           this.setState({
             savedMovies,
+            savedMoviesFiltered: savedMovies,
           });
           localStorage.setItem('SavedMovies', JSON.stringify(savedMovies));
         }
@@ -185,9 +190,9 @@ class App extends Component {
       .then((res) => {
         if (res.movie) {
           this.setState({
+            savedMoviesFiltered: [res.movie, ...this.state.savedMovies],
             savedMovies: [res.movie, ...this.state.savedMovies],
           });
-          localStorage.setItem('SavedMovies', JSON.stringify(this.state.savedMovies));
         }
       })
       .catch((err) => {
@@ -203,9 +208,13 @@ class App extends Component {
       .deleteMovie(deleteMovie._id)
       .then(() => {
         this.setState({
-          savedMovies: this.state.savedMovies.filter((item) => item._id !== deleteMovie._id),
+          savedMoviesFiltered: this.state.savedMovies.filter(
+            (item) => item._id !== deleteMovie._id,
+          ),
+          savedMovies: this.state.savedMovies.filter(
+            (item) => item._id !== deleteMovie._id,
+          ),
         });
-        localStorage.setItem('SavedMovies', JSON.stringify(this.state.savedMovies));
       })
       .catch((err) => {
         console.log(err);
@@ -276,7 +285,6 @@ class App extends Component {
   };
 
   searchSavedMovies = (searchText, checkboxStatus) => {
-    const savedMovies = JSON.parse(localStorage.getItem('SavedMovies'));
     this.setState({
       isShowNotFoundSavedMoviesMessage: false,
       savedMoviesSearchText: searchText,
@@ -285,19 +293,19 @@ class App extends Component {
       const {
         moviesFilteredBySearchText,
         lang,
-      } = FilterMoviesBySearchText(savedMovies, searchText);
+      } = FilterMoviesBySearchText(this.state.savedMovies, searchText);
       this.setState({
         savedMoviesLang: lang,
       });
       const moviesFilteredByDuration = FilterMoviesByDuration(moviesFilteredBySearchText);
       if (moviesFilteredByDuration.length > 0) {
         this.setState({
-          savedMovies: moviesFilteredByDuration,
+          savedMoviesFiltered: moviesFilteredByDuration,
           isShowSavedMoviesCardList: true,
         });
       } else {
           this.setState({
-            savedMovies: [],
+            savedMoviesFiltered: [],
             isShowNotFoundSavedMoviesMessage: true,
           });
       }
@@ -305,16 +313,16 @@ class App extends Component {
         const {
           moviesFilteredBySearchText,
           lang,
-        } = FilterMoviesBySearchText(savedMovies, searchText);
+        } = FilterMoviesBySearchText(this.state.savedMovies, searchText);
         if (moviesFilteredBySearchText.length > 0) {
           this.setState({
             savedMoviesLang: lang,
-            savedMovies: moviesFilteredBySearchText,
+            savedMoviesFiltered: moviesFilteredBySearchText,
             isShowSavedMoviesCardList: true,
           });
         } else {
             this.setState({
-              savedMovies: [],
+              savedMoviesFiltered: [],
               isShowNotFoundSavedMoviesMessage: true,
             });
         }
@@ -417,7 +425,7 @@ class App extends Component {
                     onSearch={this.searchSavedMovies}
                     onSearchByDuration={this.handleSearchSavedMoviesByDuration}
                     searchText={''}
-                    savedMovies={this.state.savedMovies}
+                    savedMovies={this.state.savedMoviesFiltered}
                     lang={this.state.savedMoviesLang}
                     isShowCardList={this.state.isShowSavedMoviesCardList}
                     isShowNotFoundMessage={this.state.isShowNotFoundSavedMoviesMessage}
