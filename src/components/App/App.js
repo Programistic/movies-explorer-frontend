@@ -341,7 +341,9 @@ class App extends Component {
 
   handleSearchByDuration = (checkboxStatus) => {
     const searchText = localStorage.getItem('SearchText');
-    this.handleSearch(searchText, checkboxStatus);
+    if (searchText) {
+      this.handleSearch(searchText, checkboxStatus);
+    }
   };
 
   handleSearchSavedMoviesByDuration = (checkboxStatus) => {
