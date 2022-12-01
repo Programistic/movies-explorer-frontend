@@ -222,6 +222,12 @@ class App extends Component {
       });
   };
 
+  updateSavedMoviesCardList = () => {
+    this.setState({
+      savedMoviesFiltered: this.state.savedMovies,
+    });
+  };
+
   handleSearch = (searchText, checkboxStatus) => {
     this.setState({
       searchText,
@@ -419,6 +425,7 @@ class App extends Component {
                   path="/movies">
                   <Header path="/movies" />
                   <Movies
+                    path="/movies"
                     onSearch={this.handleSearch}
                     onSearchByDuration={this.handleSearchByDuration}
                     checkboxStatus={this.state.checkboxStatus}
@@ -452,6 +459,7 @@ class App extends Component {
                     isShowRequestErrorMessage={this.state.isShowSavedMoviesRequestErrorMessage}
                     isSaved={true}
                     onDeleteMovie={this.deleteSavedMovie}
+                    updateSavedMoviesCardList={this.updateSavedMoviesCardList}
                   />
                   <Footer />
                 </ProtectedRoute>

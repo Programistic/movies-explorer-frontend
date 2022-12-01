@@ -16,6 +16,7 @@ function MoviesCardList({
   isShowPreloader,
   onSaveMovie,
   onDeleteMovie,
+  updateSavedMoviesCardList,
 }) {
   const windowWidth = WindowWidthMonitor();
   const [numberCardsLoaded, setNumberCardsLoaded] = useState(3);
@@ -36,9 +37,14 @@ function MoviesCardList({
     }
   }, [windowWidth]);
 
+  useEffect(() => {
+    if (path === '/saved-movies') {
+      updateSavedMoviesCardList();
+    }
+  }, [path]);
+
   let isMoreCards = (numberCardsDisplayed < movies.length)
   && (numberCardsDisplayed >= 3) && (isShowCardList);
-
   let moviesList;
 
   if (path === '/saved-movies') {

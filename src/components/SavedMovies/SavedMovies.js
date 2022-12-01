@@ -14,6 +14,7 @@ function SavedMovies({
   isShowRequestErrorMessage,
   isSaved,
   onDeleteMovie,
+  updateSavedMoviesCardList,
 }) {
   return (
     <>
@@ -31,6 +32,7 @@ function SavedMovies({
         isShowRequestErrorMessage={isShowRequestErrorMessage}
         isSaved={isSaved}
         onDeleteMovie={onDeleteMovie}
+        updateSavedMoviesCardList={updateSavedMoviesCardList}
       />
     </>
   );
