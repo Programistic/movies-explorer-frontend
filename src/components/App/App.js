@@ -142,30 +142,32 @@ class App extends Component {
   };
 
   getAllMovies = () => {
-    this.setState({
-      isShowPreloader: true,
-      isShowRequestErrorMessage: false,
-    });
-    moviesApi
-      .getMovies()
-      .then((allMovies) => {
-        if (allMovies.length > 0) {
+    if (this.state.loggedIn) {
+      this.setState({
+        isShowPreloader: true,
+        isShowRequestErrorMessage: false,
+      });
+      moviesApi
+        .getMovies()
+        .then((allMovies) => {
+          if (allMovies.length > 0) {
+            this.setState({
+              isShowPreloader: false,
+              isMoviesLoaded: true,
+              allMovies,
+              isFirstLoad: true,
+            });
+            localStorage.setItem('MoviesFromBeatfilm', JSON.stringify(allMovies));
+          }
+        })
+        .catch((err) => {
           this.setState({
             isShowPreloader: false,
-            isMoviesLoaded: true,
-            allMovies,
-            isFirstLoad: true,
+            isShowRequestErrorMessage: true,
           });
-          localStorage.setItem('MoviesFromBeatfilm', JSON.stringify(allMovies));
-        }
-      })
-      .catch((err) => {
-        this.setState({
-          isShowPreloader: false,
-          isShowRequestErrorMessage: true,
+          console.log(err);
         });
-        console.log(err);
-      });
+    }
   };
 
   getAllSavedMovies = () => {
@@ -224,6 +226,7 @@ class App extends Component {
 
   updateSavedMoviesCardList = () => {
     this.setState({
+      isShowNotFoundSavedMoviesMessage: false,
       savedMoviesFiltered: this.state.savedMovies,
     });
   };
