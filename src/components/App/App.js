@@ -46,6 +46,7 @@ class App extends Component {
       savedMoviesSearchText: '',
       savedMoviesFiltered: [],
       isShowSavedMoviesCardList: true,
+      isShowNotFoundSavedMoviesMessage: false,
       isShowSavedMoviesRequestErrorMessage: false,
       isShowErrorMessage: false,
       registerErrorMessage: '',
@@ -366,10 +367,29 @@ class App extends Component {
       });
   };
 
-  resetLoggedIn = () => {
+  handleLogout = () => {
     this.setState({
+      allMovies: [],
+      searchText: '',
+      moviesFiltered: [],
+      savedMovies: [],
+      savedMoviesFiltered: [],
+      isMoviesLoaded: false,
+      isShowNotFoundMessage: false,
+      isShowNotFoundSavedMoviesMessage: false,
+      isShowRequestErrorMessage: false,
+      isShowSavedMoviesRequestErrorMessage: false,
+      currentUser: {},
       loggedIn: false,
     });
+    localStorage.removeItem('jwt');
+    localStorage.removeItem('MoviesFromBeatfilm');
+    localStorage.removeItem('SavedMovies');
+    localStorage.removeItem('FilteredMovies');
+    localStorage.removeItem('SearchText');
+    localStorage.removeItem('CheckboxStatus');
+    localStorage.removeItem('Lang');
+    this.props.history.push('/');
   };
 
   closeTooltip = () => {
@@ -440,7 +460,7 @@ class App extends Component {
                   path="/profile">
                   <Header path="/profile" />
                   <Profile
-                    resetLoggedIn={this.resetLoggedIn}
+                    handleLogout={this.handleLogout}
                     editCurrentUser={this.editCurrentUser}
                   />
                 </ProtectedRoute>

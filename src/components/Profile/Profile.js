@@ -13,11 +13,11 @@ import '../App/App.css';
 import './Profile.css';
 
 class Profile extends Component {
-  constructor({ props, editCurrentUser, resetLoggedIn }) {
+  constructor({ props, editCurrentUser, handleLogout }) {
     super(props);
 
     this.editCurrentUser = editCurrentUser;
-    this.resetLoggedIn = resetLoggedIn;
+    this.handleLogout = handleLogout;
 
     this.state = {
       name: '',
@@ -98,15 +98,8 @@ class Profile extends Component {
     }
   }
 
-  handleSignOut = () => {
-    localStorage.removeItem('jwt');
-    localStorage.removeItem('FilteredMovies');
-    localStorage.removeItem('SearchText');
-    localStorage.removeItem('CheckboxStatus');
-    localStorage.removeItem('Lang');
-    localStorage.removeItem('SavedMovies');
-    this.resetLoggedIn();
-    this.props.history.push('/');
+  signOut = () => {
+    this.handleLogout();
   };
 
   render() {
@@ -141,7 +134,7 @@ class Profile extends Component {
           <span className="text-warning">{this.state.formErrors.email}</span>
         </div>
         <button type="submit" className={`profile__button_role_edit ${!this.state.formValid ? 'button_inactive' : 'profile-button_active'} profile__button`} disabled={!this.state.formValid}>Редактировать</button>
-        <button onClick={this.handleSignOut} className="profile__button profile__button_role_signout">Выйти из аккаунта</button>
+        <button onClick={this.signOut} className="profile__button profile__button_role_signout">Выйти из аккаунта</button>
       </form>
     );
   }
