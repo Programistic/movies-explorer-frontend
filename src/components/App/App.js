@@ -379,6 +379,12 @@ class App extends Component {
   };
 
   handleLogout = () => {
+    this.resetState();
+    this.clearLocalStorage();
+    this.props.history.push('/');
+  };
+
+  resetState = () => {
     this.setState({
       allMovies: [],
       searchText: '',
@@ -393,6 +399,9 @@ class App extends Component {
       currentUser: {},
       loggedIn: false,
     });
+  };
+
+  clearLocalStorage = () => {
     localStorage.removeItem('jwt');
     localStorage.removeItem('MoviesFromBeatfilm');
     localStorage.removeItem('SavedMovies');
@@ -400,7 +409,6 @@ class App extends Component {
     localStorage.removeItem('SearchText');
     localStorage.removeItem('CheckboxStatus');
     localStorage.removeItem('Lang');
-    this.props.history.push('/');
   };
 
   closeTooltip = () => {
