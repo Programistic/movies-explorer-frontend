@@ -1,6 +1,6 @@
 import { BASE_URL } from './constants';
 
-const getResponseData = (res) => (res.ok ? res.json() : Promise.reject(new Error(`Error ${res.status}`)));
+const getResponseData = (res) => (res.ok ? res.json() : Promise.reject(res));
 
 export const register = (name, email, password) => fetch(`${BASE_URL}/signup`, {
     method: 'POST',

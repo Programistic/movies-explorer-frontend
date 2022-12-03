@@ -19,6 +19,14 @@ import moviesApi from '../../utils/MoviesApi';
 import withRouter from '../../utils/WithRouter';
 import FilterMoviesBySearchText from '../FilterMovies/FilterMoviesBySearchText';
 import FilterMoviesByDuration from '../FilterMovies/FilterMoviesByDuration';
+import {
+  UPDATE_SUCCESS_MESSAGE,
+  REQUEST_INVALID_ERROR_MESSAGE,
+  AUTH_ERROR_MESSAGE,
+  NOT_FOUND_ERROR_MESSAGE,
+  DEFAULT_ERROR_MESSAGE,
+  CONFLICT_ERROR_MESSAGE,
+} from '../../utils/constants';
 import './App.css';
 
 class App extends Component {
@@ -49,7 +57,7 @@ class App extends Component {
       isShowNotFoundSavedMoviesMessage: false,
       isShowSavedMoviesRequestErrorMessage: false,
       isShowErrorMessage: false,
-      registerErrorMessage: '',
+      tooltipMessage: '',
     };
 
     this.getCurrentUser = this.getCurrentUser.bind(this);
@@ -97,6 +105,33 @@ class App extends Component {
     localStorage.setItem('SavedMovies', JSON.stringify(this.state.savedMovies));
   };
 
+  handleLogin = (email, password) => {
+    Auth
+      .authorize(email, password)
+      .then((data) => {
+        if (data !== undefined && data.token) {
+          localStorage.setItem('jwt', data.token);
+          this.getCurrentUser();
+        }
+      })
+      .catch((err) => {
+        this.handleError(err);
+      });
+  };
+
+  handleRegister = (name, email, password) => {
+    Auth
+      .register(name, email, password)
+      .then((data) => {
+        if (data !== undefined) {
+          this.handleLogin(data.email, password);
+        }
+      })
+      .catch((err) => {
+        this.handleError(err);
+      });
+  };
+
   getCurrentUser = () => {
     if (localStorage.getItem('jwt')) {
       const jwt = localStorage.getItem('jwt');
@@ -104,22 +139,15 @@ class App extends Component {
         MainApi
           .getCurrentUser(jwt)
           .then((res) => {
-            if (res) {
-              this.setState({
-                loggedIn: true,
-                currentUser: res.user,
-              });
-              this.getAllSavedMovies();
-              this.props.history.push('/movies');
-            } else {
-                this.setState({
-                  loggedIn: false,
-                });
-                this.props.history.push('/signin');
-            }
+            this.setState({
+              loggedIn: true,
+              currentUser: res.user,
+            });
+            this.getAllSavedMovies();
+            this.props.history.push('/movies');
           })
           .catch((err) => {
-            console.log(err);
+            this.handleError(err);
           });
       }
     }
@@ -129,15 +157,13 @@ class App extends Component {
     MainApi
       .editCurrentUser(email, name)
       .then((res) => {
-        if (res) {
-          this.setState({
-            currentUser: res.user,
-            isTooltipOpen: true,
-          });
-        }
+        this.setState({
+          currentUser: res.user,
+        });
+        this.openTooltip(UPDATE_SUCCESS_MESSAGE);
       })
       .catch((err) => {
-        console.log(err);
+        this.handleError(err);
       });
   };
 
@@ -165,7 +191,6 @@ class App extends Component {
             isShowPreloader: false,
             isShowRequestErrorMessage: true,
           });
-          console.log(err);
         });
     }
   };
@@ -183,7 +208,7 @@ class App extends Component {
         }
       })
       .catch((err) => {
-        console.log(err);
+        this.handleError(err);
       });
   };
 
@@ -199,7 +224,7 @@ class App extends Component {
         }
       })
       .catch((err) => {
-        console.log(err);
+        this.handleError(err);
       });
   };
 
@@ -220,7 +245,7 @@ class App extends Component {
         });
       })
       .catch((err) => {
-        console.log(err);
+        this.handleError(err);
       });
   };
 
@@ -351,33 +376,6 @@ class App extends Component {
     this.searchSavedMovies(searchText, checkboxStatus);
   };
 
-  handleLogin = (email, password) => {
-    Auth
-      .authorize(email, password)
-      .then((data) => {
-        if (data !== undefined && data.token) {
-          localStorage.setItem('jwt', data.token);
-          this.getCurrentUser();
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  handleRegister = (name, email, password) => {
-    Auth
-      .register(name, email, password)
-      .then((data) => {
-        if (data !== undefined) {
-          this.handleLogin(data.email, password);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
   handleLogout = () => {
     this.resetState();
     this.clearLocalStorage();
@@ -411,10 +409,39 @@ class App extends Component {
     localStorage.removeItem('Lang');
   };
 
+  openTooltip = (message) => {
+    this.setState({
+      isTooltipOpen: true,
+      tooltipMessage: message,
+    });
+  };
+
   closeTooltip = () => {
     this.setState({
       isTooltipOpen: false,
     });
+  };
+
+  handleError = (err) => {
+    switch (err.status) {
+      case 400:
+        this.openTooltip(REQUEST_INVALID_ERROR_MESSAGE);
+        break;
+      case 401 || 403:
+        this.openTooltip(AUTH_ERROR_MESSAGE);
+        this.handleLogout();
+        break;
+      case 404:
+        this.openTooltip(NOT_FOUND_ERROR_MESSAGE);
+        break;
+      case 409:
+        this.openTooltip(CONFLICT_ERROR_MESSAGE);
+        break;
+      default:
+        this.openTooltip(`${DEFAULT_ERROR_MESSAGE} ${err.status !== undefined ? err.status : ''}`);
+        this.handleLogout();
+        break;
+    }
   };
 
   render() {
@@ -506,7 +533,10 @@ class App extends Component {
 
               </Switch>
 
-              <Tooltip onConfirm={this.closeTooltip} isOpen={this.state.isTooltipOpen} />
+              <Tooltip
+                onConfirm={this.closeTooltip}
+                isOpen={this.state.isTooltipOpen}
+                tooltipMessage={this.state.tooltipMessage}/>
 
             </LoggedInContext.Provider>
 

@@ -1,6 +1,6 @@
 import { BASE_URL, API_URL } from './constants';
 
-const getResponseData = (res) => (res.ok ? res.json() : Promise.reject(new Error(`Error ${res.status}`)));
+const getResponseData = (res) => (res.ok ? res.json() : Promise.reject(res));
 
 export const getCurrentUser = (token) => fetch(`${BASE_URL}/users/me`, {
   method: 'GET',
