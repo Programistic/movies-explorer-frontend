@@ -3,9 +3,12 @@
 }
 
 .container {
+  display: flex;
+  flex-direction: column;
   box-sizing: border-box;
   max-width: 1280px;
   min-width: 320px;
+  min-height: 100vh;
   margin: 0 auto;
   padding: 0;
 }
@@ -93,6 +96,7 @@
   width: 26px;
   height: 30px;
   background-color: #f9f9f9;
+  border-radius: 4px;
 }
 
 .accaunt-icon {
@@ -107,10 +111,35 @@
   padding: 0;
 }
 
-@media screen and (max-width: 769px) {
-  .menu {
-    
-  }
+.button_active {
+  color: #fff;
+  background-color: #3456f3;
+  transition: opacity .24s ease;
+  cursor: pointer;
+}
+
+.button_active:hover {
+  opacity: .7;
+}
+
+.button_inactive {
+  color: #a0a0a0;
+  background-color: #f8f8f8;
+  cursor: inherit;
+}
+
+.button_inactive:hover {
+  opacity: 1;
+}
+
+.text-warning {
+  display: block;
+  min-height: 12.1px;
+  margin: 4px 0 0;
+  padding: 0;
+  text-align: start;
+  font: 400 10px/12.1px 'Inter', 'Arial', sans-serif;
+  color: #ff3055;
 }
 
 @media screen and (max-width: 580px) {

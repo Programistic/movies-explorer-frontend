@@ -23,7 +23,7 @@
 }
 
 .register__label {
-  margin: 24px 0 0;
+  margin: 12px 0 0;
   padding: 0;
   font: 400 10px/12.1px 'Inter', 'Arial', sans-serif;
   color: #a0a0a0;
@@ -32,40 +32,27 @@
 .register__input {
   margin: 5px 0 10px;
   padding: 0;
-  max-width: 122px;
   font: 500 14px/16,9px 'Inter', 'Arial', sans-serif;
   color: #000;
   border: 0;
-}
-
-.register__text-warning {
-  margin: 6px 0 0;
-  padding: 0;
-  font: 400 10px/12.1px 'Inter', 'Arial', sans-serif;
-  color: #ff3055;
+  outline: none;
 }
 
 .register__line {
   width: 396px;
   height: 1px;
+  margin: 0 0 2px;
+  padding: 0;
 }
 
 .register__button {
-  margin: 134px 0 16px;
+  margin: 0 0 16px;
   padding: 0;
   width: 396px;
   height: 45px;
   font: 400 14px/16.9px 'Inter', 'Arial', sans-serif;
-  color: #fff;
   border: 0;
   border-radius: 3px;
-  background-color: #3456f3;
-  transition: opacity .24s ease;
-  cursor: pointer;
-}
-
-.register__button:hover {
-  opacity: .7;
 }
 
 .register__link-container {
@@ -83,6 +70,17 @@
   margin: 0 0 0 6px;
   font: 400 14px/16.9px 'Inter', 'Arial', sans-serif;
   color: #3456f3;
+}
+
+.register__text-error {
+  align-self: center;
+  max-width: 396px;
+  min-height: 70px;
+  margin: 48px 0 20px;
+  padding: 0 20px;
+  font: 500 14px/16px 'Inter', 'Arial', sans-serif;
+  color: #ff3055;
+  text-align: center;
 }
 
 @media screen and (max-width: 769px) {
@@ -107,7 +105,7 @@
   }
 
   .register__button {
-    margin: 222px 0 14px;
+    margin: 0 0 14px;
     width: 260px;
   }
 
@@ -118,5 +116,11 @@
   .register__link_role_signin {
     margin: 0 0 0 7px;
     font: 400 12px/14.5px 'Inter', 'Arial', sans-serif;
+  }
+
+  .register__text-error {
+    max-width: 260px;
+    margin: 88px 0 20px;
+    font: 400 13px/16px 'Inter', 'Arial', sans-serif;
   }
 }

@@ -1,0 +1,102 @@
+.popup {
+  visibility: hidden;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 0;
+  transition: visibility .4s, opacity .4s linear;
+}
+
+.popup_opened {
+  visibility: visible;
+  opacity: 1;
+}
+
+.popup_role_tooltip {
+  display: grid;
+  grid-template-columns: 1fr 40px 430px 40px 1fr;
+  grid-template-rows: calc(((100% - 370px) / 2) - 20px) 40px 330px;
+  grid-template-areas: '. . . . .'
+                       '. . . button-close .'
+                       '. . popup . .';
+  background-color: rgba(0, 0, 0, .5);
+}
+
+.popup__container {
+  grid-area: popup;
+  box-sizing: border-box;
+  width: 430px;
+  padding: 34px 36px 37px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 25px rgba(0, 0, 0, .15);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.popup__message {
+  margin: 32px 0 23px;
+  padding: 0;
+  color: #000;
+  font: 900 20px/24px 'Inter', 'Arial', sans-serif;
+  text-align: center;
+}
+
+.button {
+  padding: 0;
+  border: 0;
+  transition: opacity .15s ease;
+}
+
+.button:hover {
+  opacity: .7;
+  cursor: pointer;
+}
+
+.popup__button-success {
+  width: 120px;
+  height: 120px;
+  margin: 26px auto 0;
+  padding: 0;
+  background: url(../../images/success.svg) center no-repeat rgba(0, 0, 0, 0);
+  background-size: contain;
+  border: none;
+  transition: opacity .15s ease;
+}
+
+.popup__button-close {
+  grid-area: button-close;
+  justify-self: end;
+  width: 32px;
+  height: 32px;
+  background: url(../../images/close.svg) center no-repeat rgba(0, 0, 0, 0);
+}
+
+@media screen and (max-width: 580px) {
+  .popup_role_tooltip {
+    grid-template-columns: 1fr 282px 1fr;
+    grid-template-rows: calc(((100% - 358px) / 2) - 18px) 36px 322px;
+    grid-template-areas: '. . .'
+                         '. button-close .'
+                         '. popup .';
+  }
+
+  .popup__container {
+    width: 282px;
+    padding: 25px 22px;
+  }
+
+  .popup__message {
+    margin: 40px auto 25px;
+    font: 900 20px/24.2px 'Inter', 'Arial', sans-serif;
+  }
+
+  .popup__button-close {
+    width: 20px;
+    height: 20px;
+    background-image: url(../../images/close-mobile.svg);
+  }
+}

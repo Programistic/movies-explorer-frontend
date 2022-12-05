@@ -1,7 +1,7 @@
 import { useLayoutEffect, useState } from 'react';
 
-function WindowWidthMonitor() {
-  const [windowWidth, setWindowsWidth] = useState({ width: 0 });
+const WindowWidthMonitor = () => {
+  const [windowWidth, setWindowsWidth] = useState({ width: 1280 });
 
   const handleWidth = () => {
     setWindowsWidth({ width: window.innerWidth });
@@ -14,6 +14,6 @@ function WindowWidthMonitor() {
   }, []);
 
   return windowWidth;
-}
+};
 
 export default WindowWidthMonitor;

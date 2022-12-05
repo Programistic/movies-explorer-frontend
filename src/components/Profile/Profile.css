@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  flex: 1;
   margin: 0;
   padding: 74px 0 70px;
 }
@@ -16,7 +17,7 @@
   display: flex;
   justify-content: space-between;
   margin: 0;
-  padding: 16px 0;
+  padding: 17px 0 0;
 }
 
 .profile__title {
@@ -37,31 +38,39 @@
 .profile__input {
   margin: 0;
   padding: 0;
-  max-width: 122px;
   font: 400 11px/13.3px 'Inter', 'Arial', sans-serif;
   color: #000;
+  text-align: end;
   border: 0;
+  outline: none;
 }
 
 .profile__button {
   margin: 0;
   padding: 0;
   font: 400 13px/15.7px 'Inter', 'Arial', sans-serif;
-  color: #000;
   border: 0;
   background-color: #fff;
-  transition: opacity .24s ease;
+}
+
+.profile-button_active {
+  color: #000;
   cursor: pointer;
 }
 
-.profile__button:hover {
+.profile-button_active:hover {
   opacity: .7;
 }
 
-.profile__link_role_signout {
+.profile__button_role_signout {
   margin: 16px 0 0;
-  font: 400 13px/15.7px 'Inter', 'Arial', sans-serif;
   color: #ff3055;
+  transition: opacity .15s ease;
+  cursor: pointer;
+}
+
+.profile__button_role_signout:hover {
+  opacity: .7;
 }
 
 @media screen and (max-width: 769px) {

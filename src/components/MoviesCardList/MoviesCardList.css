@@ -5,7 +5,7 @@
   margin: 68px auto 0;
   padding: 80px 0 0;
   max-width: 1140px;
-  min-height: 30vh;
+  min-height: 46vh;
   border-top: 1px solid #e8e8e8;
 }
 
@@ -37,13 +37,21 @@
   opacity: .7;
 }
 
+.message {
+  margin: 0 0 70px;
+  padding: 0 20px;
+  font: 500 14px/16px 'Inter', 'Arial', sans-serif;
+  color: #ff3055;
+  text-align: center;
+}
+
 @media screen and (max-width: 1200px) {
   .cards-container {
     width: calc(100% - 60px);
   }
 
   .cards {
-    grid-template-columns: repeat(3, calc((100% - 48px) / 3));
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
@@ -53,7 +61,7 @@
   }
 
   .cards {
-    grid-template-columns: repeat(2, calc((100% - 30px) / 2));
+    grid-template-columns: repeat(2, 1fr);
     gap: 36px 30px;
   }
 
@@ -64,7 +72,7 @@
 
 @media screen and (max-width: 580px) {
   .cards {
-    grid-template-columns: 100%;
+    grid-template-columns: 1fr;
   }
 
   .cards-container {
@@ -75,5 +83,10 @@
   .cards__button-more {
     margin: 80px 0 80px;
     width: 240px;
+  }
+
+  .message {
+    margin: 0 0 50px;
+    font: 400 13px/18px 'Inter', 'Arial', sans-serif;
   }
 }

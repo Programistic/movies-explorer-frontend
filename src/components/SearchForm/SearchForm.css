@@ -4,6 +4,7 @@
   padding: 16px 0;
   height: 72px;
   max-width: 1140px;
+  width: 100%;
   box-sizing: border-box;
   background-color: #f9f9f9;
   border-radius: 9px;
@@ -36,14 +37,25 @@
   height: 22px;
 }
 
-.search-form__input {
+.search-form__input-container {
   width: 100%;
   margin: 0 16px;
+  padding: 0;
+}
+
+.search-form__input {
+  width: 100%;
+  margin: 12.2px 0 0 0;
   padding: 0;
   font: 400 18px/20px 'Inter', 'Arial', sans-serif;
   color: #a0a0a0;
   border: 0;
   background-color: #f9f9f9;
+  outline: none;
+}
+
+.search-form__input:focus {
+  color: #000;
 }
 
 .search-form__button {
