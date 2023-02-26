@@ -1,9 +1,30 @@
-# movies-explorer-frontend
+### One-page adaptive interactive website "Movies explorer"
 
-### http://films-explorer.nomoredomains.sbs
-### https://films-explorer.nomoredomains.sbs
-### IP: 84.201.155.152
+#### About
+It is training project from Yandex.Praktikum
 
-### Макет https://www.figma.com/file/GOK1HU4gDBu9uv94e4rVTB/Diplom?node-id=891%3A3857
+#### Project functionality
+Two-page adaptive interactive website, The site allows the user to search for movies on the Beatfilm service by title and store them in a personal account. It allows the user to rate movies with likes. The site features registration, authorization, and user authentication. The purpose of the site is to gain skills in the use of technology Flex, Grid, BEM, JavaScript, OOP, form validation.
 
-### Ссылка на pull request: https://github.com/Programistic/movies-explorer-frontend/pull/2
+#### Technology stack
+- JSX
+- CSS3
+- BEM
+- Flex
+- Grid
+- JavaScript
+- React.js
+- Node.js
+- Express.js
+- MongoDB
+- Webpack
+- Babel
+- ESLint
+
+#### Deploy
+- $ npm run build
+- $ npm run deploy
+
+#### Website link
+- https://films-explorer.nomoredomains.sbs
+
