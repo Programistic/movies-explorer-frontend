@@ -1,4 +1,4 @@
-### One-page adaptive interactive website "Movies explorer"
+### Adaptive interactive website "Movies explorer"
 
 #### About
 It is training project from Yandex.Praktikum
